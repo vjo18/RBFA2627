@@ -3071,7 +3071,7 @@ const teamXppmBoxData = useMemo(() => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-gray-900">
       <div className="max-w-screen-2xl mx-auto px-6 py-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-semibold">P1 West-Vlaanderen 2025-2026</h1>
+          <h1 className="text-3xl font-semibold">P1 West-Vlaanderen 2026-2027</h1>
           <p className="text-gray-500">Selecteer een team om het overzicht te tonen.</p>
         </header>
 
