@@ -1,0 +1,322 @@
+{
+  "Club Roeselare": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. SV Veurne A"
+    ],
+    "res": [
+      "G"
+    ],
+    "gd": [
+      0
+    ]
+  },
+  "FC Sp. Heestert A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "S.V. Wevelgem City A"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -3
+    ]
+  },
+  "K. Eendr. Wervik A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. VC Ardooie A"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -4
+    ]
+  },
+  "K. FC Heist A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "KFC Aalbeke Sport A"
+    ],
+    "res": [
+      "G"
+    ],
+    "gd": [
+      0
+    ]
+  },
+  "K. FC Marke A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. RC Bissegem"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -2
+    ]
+  },
+  "K. FC Varsenare A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. Sassp. Boezinge A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      2
+    ]
+  },
+  "K. RC Bissegem": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. FC Marke A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      2
+    ]
+  },
+  "K. SK Beveren-Leie A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K.R.C. Waregem A"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -1
+    ]
+  },
+  "K. SV Veurne A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "Club Roeselare"
+    ],
+    "res": [
+      "G"
+    ],
+    "gd": [
+      0
+    ]
+  },
+  "K. Sassp. Boezinge A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. FC Varsenare A"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -2
+    ]
+  },
+  "K. VC Ardooie A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. Eendr. Wervik A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      4
+    ]
+  },
+  "K.R.C. Waregem A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. SK Beveren-Leie A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      1
+    ]
+  },
+  "K.S.C. Wielsbeke": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "SV Ingelmunster A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      2
+    ]
+  },
+  "KFC Aalbeke Sport A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K. FC Heist A"
+    ],
+    "res": [
+      "G"
+    ],
+    "gd": [
+      0
+    ]
+  },
+  "S.V. Wevelgem City A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "FC Sp. Heestert A"
+    ],
+    "res": [
+      "W"
+    ],
+    "gd": [
+      3
+    ]
+  },
+  "SV Ingelmunster A": {
+    "rounds": [
+      1
+    ],
+    "elo": [
+      1500.0
+    ],
+    "opp": [
+      1500.0
+    ],
+    "oppName": [
+      "K.S.C. Wielsbeke"
+    ],
+    "res": [
+      "V"
+    ],
+    "gd": [
+      -2
+    ]
+  }
+}
