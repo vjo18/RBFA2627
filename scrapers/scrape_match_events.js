@@ -129,8 +129,9 @@ async function main() {
   console.log("📅 Gespeelde matchen:", finishedMatches.length);
 
   const outPath = "data_raw/match_events.csv";
+  const currentSeasonUrls = new Set(finishedMatches.map((m) => m.url).filter(Boolean));
 
-  // ==== 5. Bestaande CSV lezen om al gescrapete URLs te skippen ====
+  // ==== 5. Alleen data van deze kalender behouden en reeds gescrapete URLs skippen ====
   const existingUrls = new Set();
   let headerWritten = false;
 
@@ -141,11 +142,16 @@ async function main() {
       const header = lines[0].split(",");
       const urlIdx = header.indexOf("matchurl");
       if (urlIdx !== -1) {
+        const currentSeasonLines = [lines[0]];
         for (let i = 1; i < lines.length; i++) {
           const cols = lines[i].split(",");
           const url = cols[urlIdx]?.replace(/^"|"$/g, "");
-          if (url) existingUrls.add(url);
+          if (url && currentSeasonUrls.has(url)) {
+            existingUrls.add(url);
+            currentSeasonLines.push(lines[i]);
+          }
         }
+        fs.writeFileSync(outPath, currentSeasonLines.join("\n") + "\n", "utf8");
       }
       headerWritten = true;
     }

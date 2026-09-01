@@ -26,8 +26,9 @@ import fs from "fs";
   );
 
   const outPath = "data_raw/player_matchdata.csv";
+  const currentSeasonUrls = new Set(finishedMatches.map((m) => m.url).filter(Boolean));
 
-  // 2) Bestaande file lezen om al gescrapete matchen te skippen
+  // 2) Vorig seizoen verwijderen en bestaande matchen van deze kalender skippen
   const existingUrls = new Set();
   let headerWritten = false;
 
@@ -38,11 +39,16 @@ import fs from "fs";
       const header = lines[0].split(",");
       const idx = header.indexOf("Match URL");
       if (idx !== -1) {
+        const currentSeasonLines = [lines[0]];
         for (let i = 1; i < lines.length; i++) {
           const cols = lines[i].split(",");
           const url = cols[idx]?.replace(/^"|"$/g, "");
-          if (url) existingUrls.add(url);
+          if (url && currentSeasonUrls.has(url)) {
+            existingUrls.add(url);
+            currentSeasonLines.push(lines[i]);
+          }
         }
+        fs.writeFileSync(outPath, currentSeasonLines.join("\n") + "\n", "utf8");
       }
     }
     headerWritten = true;

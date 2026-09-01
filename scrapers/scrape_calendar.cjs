@@ -1,6 +1,10 @@
 const fs = require("fs");
 const puppeteer = require("puppeteer");
 
+const CALENDAR_URL =
+  process.env.RBFA_CALENDAR_URL ||
+  "https://www.rbfa.be/nl/competitie/CHP_136334/kalender";
+
 (async () => {
   console.log("🚀 Starting calendar scrape...");
 
@@ -11,10 +15,8 @@ const puppeteer = require("puppeteer");
 
   const page = await browser.newPage();
 
-  await page.goto(
-    "https://www.rbfa.be/nl/competitie/CHP_123326/kalender",
-    { waitUntil: "networkidle0" }
-  );
+  console.log(`📅 Calendar: ${CALENDAR_URL}`);
+  await page.goto(CALENDAR_URL, { waitUntil: "networkidle0" });
 
   const matchData = await page.evaluate(async () => {
     const matchData = [];

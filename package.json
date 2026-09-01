@@ -11,8 +11,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "scrape:calendar": "node scrapers/scrape_calendar.cjs",
-    "scrape:events": "node scrapers/scrape_match_events.cjs",
-    "scrape:players": "node scrapers/scrape_player_data.cjs",
+    "scrape:events": "node scrapers/scrape_match_events.js",
+    "scrape:players": "node scrapers/scrape_player_data.js",
     "build:data": "python processing/export_json_local.py",
     "update:data": "node scrapers/scrape_calendar.cjs && node scrapers/scrape_match_events.js && node scrapers/scrape_player_data.js && python processing/build_data_team.py && python processing/build_team_stats.py && python processing/build_data_matchevent.py && python processing/build_player_stats.py && python processing/export_json_local.py"
   },
