@@ -1,22 +1,60 @@
 const fs = require("fs");
+const { spawnSync } = require("child_process");
 const puppeteer = require("puppeteer");
 
 const CALENDAR_URL =
   process.env.RBFA_CALENDAR_URL ||
   "https://www.rbfa.be/nl/competitie/CHP_136334/kalender";
 
+// RBFA/Akamai laat de kalender-GraphQL-calls momenteel niet betrouwbaar toe
+// vanuit headless Chromium. In Linux/Codespaces starten we daarom automatisch
+// opnieuw via Xvfb en draaien we Chrome headful.
+if (!process.env.DISPLAY && process.env.RBFA_XVFB_CHILD !== "1") {
+  console.log("🖥️ Geen DISPLAY gevonden. Herstart scraper via xvfb-run...");
+
+  const result = spawnSync(
+    "xvfb-run",
+    ["-a", process.execPath, __filename, ...process.argv.slice(2)],
+    {
+      stdio: "inherit",
+      env: {
+        ...process.env,
+        RBFA_XVFB_CHILD: "1",
+      },
+    }
+  );
+
+  if (result.error) {
+    console.error("❌ xvfb-run kon niet worden gestart.");
+    console.error("   Installeer Xvfb met: sudo apt-get update && sudo apt-get install -y xvfb");
+    console.error(result.error.message);
+    process.exit(1);
+  }
+
+  process.exit(result.status ?? 1);
+}
+
 (async () => {
   console.log("🚀 Starting calendar scrape...");
 
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(60000);
 
   console.log(`📅 Calendar: ${CALENDAR_URL}`);
-  await page.goto(CALENDAR_URL, { waitUntil: "networkidle0" });
+  await page.goto(CALENDAR_URL, {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+  });
+
+  // Wacht expliciet tot de RBFA kalendercomponent geladen is.
+  // Als GraphQL opnieuw geblokkeerd wordt, krijgen we hier een duidelijke fout
+  // in plaats van stilletjes een lege match_calendar.json te schrijven.
+  await page.waitForSelector("select", { timeout: 30000 });
 
   const matchData = await page.evaluate(async () => {
     const matchData = [];
@@ -84,7 +122,9 @@ const CALENDAR_URL =
       dropdown.dispatchEvent(new Event("change"));
       await sleep(2000);
       extractMatchData();
-      console.log(`   ✔️ Speeldag ${i + 1} klaar, totaal: ${matchData.length} matchen`);
+      console.log(
+        `   ✔️ Speeldag ${i + 1} klaar, totaal: ${matchData.length} matchen`
+      );
     }
 
     return matchData;
