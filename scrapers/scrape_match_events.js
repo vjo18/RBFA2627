@@ -2,6 +2,38 @@
 
 import puppeteer from "puppeteer";
 import fs from "fs";
+import { spawnSync } from "child_process";
+
+// RBFA/Akamai laat GraphQL-calls vanuit headless Chromium niet betrouwbaar toe.
+// In Linux/Codespaces starten we daarom automatisch opnieuw via Xvfb en draaien
+// we Chrome headful. Op andere platformen verandert dit niets.
+if (
+  process.platform === "linux" &&
+  !process.env.DISPLAY &&
+  process.env.RBFA_XVFB_CHILD !== "1"
+) {
+  console.log("🖥️ Geen DISPLAY gevonden. Herstart scraper via xvfb-run...");
+
+  const result = spawnSync(
+    "xvfb-run",
+    ["-a", process.execPath, process.argv[1], ...process.argv.slice(2)],
+    {
+      stdio: "inherit",
+      env: { ...process.env, RBFA_XVFB_CHILD: "1" },
+    }
+  );
+
+  if (result.error) {
+    console.error("❌ xvfb-run kon niet worden gestart.");
+    console.error(
+      "   Installeer Xvfb met: sudo apt-get update && sudo apt-get install -y xvfb"
+    );
+    console.error(result.error.message);
+    process.exit(1);
+  }
+
+  process.exit(result.status ?? 1);
+}
 
 // ==== 1. Exacte extractie-logica uit MatchEventsv2 ====
 // (lichte uitbreiding: ook 'team_against' veld)
@@ -109,7 +141,7 @@ async function main() {
 
   // ==== 3. Browser opstarten, timeouts ruim ====
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     protocolTimeout: 0, // <– voorkomt Runtime.callFunctionOn timed out
   });
