@@ -5,34 +5,39 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1500.0,
       1477.46,
       1500.69,
-      1477.17
+      1477.17,
+      1479.8
     ],
     "opp": [
       1500.0,
       1526.25,
       1461.08,
       1512.87,
-      1538.73
+      1538.73,
+      1494.03
     ],
     "oppName": [
       "K. SV Veurne A",
       "S.V. Wevelgem City A",
       "FC Sp. Heestert A",
       "K.R.C. Waregem A",
-      "KFC Aalbeke Sport A"
+      "KFC Aalbeke Sport A",
+      "SV Ingelmunster A"
     ],
     "res": [
       "G",
       "V",
       "W",
       "V",
+      "G",
       "G"
     ],
     "gd": [
@@ -40,6 +45,7 @@
       -2,
       2,
       -2,
+      0,
       0
     ]
   },
@@ -49,42 +55,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1473.75,
       1461.08,
       1437.85,
-      1416.73
+      1416.73,
+      1392.9
     ],
     "opp": [
       1500.0,
       1528.12,
       1477.46,
       1526.2,
-      1470.23
+      1470.23,
+      1393.95
     ],
     "oppName": [
       "S.V. Wevelgem City A",
       "K. VC Ardooie A",
       "Club Roeselare",
       "K. SV Veurne A",
-      "K. FC Marke A"
+      "K. FC Marke A",
+      "K. SK Beveren-Leie A"
     ],
     "res": [
       "V",
       "V",
       "V",
       "V",
-      "V"
+      "V",
+      "W"
     ],
     "gd": [
       -3,
       -1,
       -2,
       -4,
-      -4
+      -4,
+      3
     ]
   },
   "K. Eendr. Wervik A": {
@@ -93,42 +105,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1471.88,
       1459.12,
       1431.12,
-      1419.74
+      1419.74,
+      1409.6
     ],
     "opp": [
       1500.0,
       1524.38,
       1460.62,
       1516.75,
-      1536.39
+      1536.39,
+      1478.42
     ],
     "oppName": [
       "K. VC Ardooie A",
       "K. FC Varsenare A",
       "SV Ingelmunster A",
       "K. RC Bissegem",
-      "K.R.C. Waregem A"
+      "K.R.C. Waregem A",
+      "K. FC Heist A"
     ],
     "res": [
       "V",
       "V",
       "V",
       "V",
-      "V"
+      "V",
+      "G"
     ],
     "gd": [
       -4,
       -1,
       -4,
       -1,
-      -1
+      -1,
+      0
     ]
   },
   "K. FC Heist A": {
@@ -137,42 +155,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1500.0,
       1474.88,
       1503.58,
-      1491.44
+      1491.44,
+      1478.42
     ],
     "opp": [
       1500.0,
       1515.0,
       1537.13,
       1570.65,
-      1537.52
+      1537.52,
+      1409.6
     ],
     "oppName": [
       "KFC Aalbeke Sport A",
       "K.R.C. Waregem A",
       "K. FC Varsenare A",
       "K.S.C. Wielsbeke",
-      "K. VC Ardooie A"
+      "K. VC Ardooie A",
+      "K. Eendr. Wervik A"
     ],
     "res": [
       "G",
       "V",
       "W",
       "V",
-      "V"
+      "V",
+      "G"
     ],
     "gd": [
       0,
       -3,
       2,
       -1,
-      -1
+      -1,
+      0
     ]
   },
   "K. FC Marke A": {
@@ -181,34 +205,39 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1475.62,
       1490.62,
       1468.73,
-      1470.23
+      1470.23,
+      1494.05
     ],
     "opp": [
       1500.0,
       1475.62,
       1548.75,
       1503.59,
-      1416.73
+      1416.73,
+      1550.54
     ],
     "oppName": [
       "K. RC Bissegem",
       "SV Ingelmunster A",
       "K.S.C. Wielsbeke",
       "K. Sassp. Boezinge A",
-      "FC Sp. Heestert A"
+      "FC Sp. Heestert A",
+      "K. VC Ardooie A"
     ],
     "res": [
       "V",
       "W",
       "V",
       "G",
+      "W",
       "W"
     ],
     "gd": [
@@ -216,7 +245,8 @@
       1,
       -3,
       0,
-      4
+      4,
+      1
     ]
   },
   "K. FC Varsenare A": {
@@ -225,34 +255,39 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1524.38,
       1537.13,
       1508.43,
-      1494.12
+      1494.12,
+      1497.87
     ],
     "opp": [
       1500.0,
       1471.88,
       1474.88,
       1524.42,
-      1582.79
+      1582.79,
+      1542.01
     ],
     "oppName": [
       "K. Sassp. Boezinge A",
       "K. Eendr. Wervik A",
       "K. FC Heist A",
       "KFC Aalbeke Sport A",
-      "K.S.C. Wielsbeke"
+      "K.S.C. Wielsbeke",
+      "K. RC Bissegem"
     ],
     "res": [
       "W",
       "W",
       "V",
       "V",
+      "G",
       "G"
     ],
     "gd": [
@@ -260,6 +295,7 @@
       1,
       -2,
       -1,
+      0,
       0
     ]
   },
@@ -269,42 +305,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1524.38,
       1500.0,
       1516.75,
-      1528.13
+      1528.13,
+      1542.01
     ],
     "opp": [
       1500.0,
       1524.38,
       1540.8,
       1431.12,
-      1502.09
+      1502.09,
+      1497.87
     ],
     "oppName": [
       "K. FC Marke A",
       "K.S.C. Wielsbeke",
       "K. VC Ardooie A",
       "K. Eendr. Wervik A",
-      "K. Sassp. Boezinge A"
+      "K. Sassp. Boezinge A",
+      "K. FC Varsenare A"
     ],
     "res": [
       "W",
       "V",
       "W",
       "W",
-      "W"
+      "W",
+      "G"
     ],
     "gd": [
       2,
       -2,
       1,
       1,
-      1
+      1,
+      0
     ]
   },
   "K. SK Beveren-Leie A": {
@@ -313,30 +355,35 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1485.0,
       1461.68,
       1434.77,
-      1415.47
+      1415.47,
+      1393.95
     ],
     "opp": [
       1500.0,
       1500.0,
       1476.68,
       1547.69,
-      1547.32
+      1547.32,
+      1392.9
     ],
     "oppName": [
       "K.R.C. Waregem A",
       "KFC Aalbeke Sport A",
       "K. Sassp. Boezinge A",
       "S.V. Wevelgem City A",
-      "K. SV Veurne A"
+      "K. SV Veurne A",
+      "FC Sp. Heestert A"
     ],
     "res": [
+      "V",
       "V",
       "V",
       "V",
@@ -348,7 +395,8 @@
       -2,
       -4,
       -4,
-      -7
+      -7,
+      -3
     ]
   },
   "K. SV Veurne A": {
@@ -357,42 +405,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1500.0,
       1498.95,
       1526.2,
-      1547.32
+      1547.32,
+      1568.85
     ],
     "opp": [
       1500.0,
       1475.62,
       1540.12,
       1437.85,
-      1415.47
+      1415.47,
+      1579.04
     ],
     "oppName": [
       "Club Roeselare",
       "K. Sassp. Boezinge A",
       "K.R.C. Waregem A",
       "FC Sp. Heestert A",
-      "K. SK Beveren-Leie A"
+      "K. SK Beveren-Leie A",
+      "K.S.C. Wielsbeke"
     ],
     "res": [
       "G",
       "G",
       "W",
       "W",
-      "W"
+      "W",
+      "V"
     ],
     "gd": [
       0,
       0,
       2,
       4,
-      7
+      7,
+      -6
     ]
   },
   "K. Sassp. Boezinge A": {
@@ -401,42 +455,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1475.62,
       1476.68,
       1503.59,
-      1502.09
+      1502.09,
+      1488.21
     ],
     "opp": [
       1500.0,
       1500.0,
       1461.68,
       1468.73,
-      1528.13
+      1528.13,
+      1536.1
     ],
     "oppName": [
       "K. FC Varsenare A",
       "K. SV Veurne A",
       "K. SK Beveren-Leie A",
       "K. FC Marke A",
-      "K. RC Bissegem"
+      "K. RC Bissegem",
+      "KFC Aalbeke Sport A"
     ],
     "res": [
       "V",
       "G",
       "W",
       "G",
-      "V"
+      "V",
+      "W"
     ],
     "gd": [
       -2,
       0,
       4,
       0,
-      -1
+      -1,
+      1
     ]
   },
   "K. VC Ardooie A": {
@@ -445,42 +505,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1528.12,
       1540.8,
       1524.04,
-      1537.52
+      1537.52,
+      1550.54
     ],
     "opp": [
       1500.0,
       1473.75,
       1500.0,
       1488.63,
-      1491.44
+      1491.44,
+      1494.05
     ],
     "oppName": [
       "K. Eendr. Wervik A",
       "FC Sp. Heestert A",
       "K. RC Bissegem",
       "SV Ingelmunster A",
-      "K. FC Heist A"
+      "K. FC Heist A",
+      "K. FC Marke A"
     ],
     "res": [
       "W",
       "W",
       "V",
       "W",
-      "W"
+      "W",
+      "V"
     ],
     "gd": [
       4,
       1,
       -1,
       1,
-      1
+      1,
+      -1
     ]
   },
   "K.R.C. Waregem A": {
@@ -489,42 +555,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1515.0,
       1540.12,
       1512.87,
-      1536.39
+      1536.39,
+      1546.53
     ],
     "opp": [
       1500.0,
       1500.0,
       1498.95,
       1500.69,
-      1419.74
+      1419.74,
+      1548.11
     ],
     "oppName": [
       "K. SK Beveren-Leie A",
       "K. FC Heist A",
       "K. SV Veurne A",
       "Club Roeselare",
-      "K. Eendr. Wervik A"
+      "K. Eendr. Wervik A",
+      "S.V. Wevelgem City A"
     ],
     "res": [
       "W",
       "W",
       "V",
       "W",
-      "W"
+      "W",
+      "G"
     ],
     "gd": [
       1,
       3,
       -2,
       2,
-      1
+      1,
+      0
     ]
   },
   "K.S.C. Wielsbeke": {
@@ -533,42 +605,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1524.38,
       1548.75,
       1570.65,
-      1582.79
+      1582.79,
+      1579.04
     ],
     "opp": [
       1500.0,
       1524.38,
       1490.62,
       1503.58,
-      1494.12
+      1494.12,
+      1568.85
     ],
     "oppName": [
       "SV Ingelmunster A",
       "K. RC Bissegem",
       "K. FC Marke A",
       "K. FC Heist A",
-      "K. FC Varsenare A"
+      "K. FC Varsenare A",
+      "K. SV Veurne A"
     ],
     "res": [
       "W",
       "W",
       "W",
       "W",
-      "G"
+      "G",
+      "W"
     ],
     "gd": [
       2,
       2,
       3,
       1,
-      0
+      0,
+      6
     ]
   },
   "KFC Aalbeke Sport A": {
@@ -577,42 +655,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1500.0,
       1523.32,
       1524.42,
-      1538.73
+      1538.73,
+      1536.1
     ],
     "opp": [
       1500.0,
       1485.0,
       1548.79,
       1508.43,
-      1477.17
+      1477.17,
+      1488.21
     ],
     "oppName": [
       "K. FC Heist A",
       "K. SK Beveren-Leie A",
       "S.V. Wevelgem City A",
       "K. FC Varsenare A",
-      "Club Roeselare"
+      "Club Roeselare",
+      "K. Sassp. Boezinge A"
     ],
     "res": [
       "G",
       "W",
       "G",
       "W",
-      "G"
+      "G",
+      "V"
     ],
     "gd": [
       0,
       2,
       0,
       1,
-      0
+      0,
+      -1
     ]
   },
   "S.V. Wevelgem City A": {
@@ -621,42 +705,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1526.25,
       1548.79,
       1547.69,
-      1566.98
+      1566.98,
+      1548.11
     ],
     "opp": [
       1500.0,
       1500.0,
       1523.32,
       1434.77,
-      1475.15
+      1475.15,
+      1546.53
     ],
     "oppName": [
       "FC Sp. Heestert A",
       "Club Roeselare",
       "KFC Aalbeke Sport A",
       "K. SK Beveren-Leie A",
-      "SV Ingelmunster A"
+      "SV Ingelmunster A",
+      "K.R.C. Waregem A"
     ],
     "res": [
       "W",
       "W",
       "G",
       "W",
-      "V"
+      "V",
+      "G"
     ],
     "gd": [
       3,
       2,
       0,
       4,
-      -1
+      -1,
+      0
     ]
   },
   "SV Ingelmunster A": {
@@ -665,42 +755,48 @@
       2,
       3,
       4,
-      5
+      5,
+      6
     ],
     "elo": [
       1500.0,
       1475.62,
       1460.62,
       1488.63,
-      1475.15
+      1475.15,
+      1494.03
     ],
     "opp": [
       1500.0,
       1475.62,
       1459.12,
       1524.04,
-      1566.98
+      1566.98,
+      1479.8
     ],
     "oppName": [
       "K.S.C. Wielsbeke",
       "K. FC Marke A",
       "K. Eendr. Wervik A",
       "K. VC Ardooie A",
-      "S.V. Wevelgem City A"
+      "S.V. Wevelgem City A",
+      "Club Roeselare"
     ],
     "res": [
       "V",
       "V",
       "W",
       "V",
-      "W"
+      "W",
+      "G"
     ],
     "gd": [
       -2,
       -1,
       4,
       -1,
-      1
+      1,
+      0
     ]
   }
 }
