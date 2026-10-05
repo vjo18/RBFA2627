@@ -52,12 +52,24 @@ if (
   const raw = fs.readFileSync("data_raw/match_calendar.json", "utf8");
   const matches = JSON.parse(raw);
 
+  if (!Array.isArray(matches) || matches.length === 0) {
+    throw new Error(
+      "match_calendar.json is leeg. Scraper stopt om bestaande ruwe data niet te overschrijven."
+    );
+  }
+
   // Alleen matchen met score
   const finishedMatches = matches.filter(
     (m) => m.homeScore !== null && m.awayScore !== null
   );
 
   const outPath = "data_raw/player_matchdata.csv";
+  const backupPath = outPath + ".bak";
+
+  if (fs.existsSync(outPath)) {
+    fs.copyFileSync(outPath, backupPath);
+    console.log(`🛟 Backup gemaakt: ${backupPath}`);
+  }
   const currentSeasonUrls = new Set(finishedMatches.map((m) => m.url).filter(Boolean));
 
   // 2) Vorig seizoen verwijderen en bestaande matchen van deze kalender skippen
