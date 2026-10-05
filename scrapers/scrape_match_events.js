@@ -154,6 +154,12 @@ async function main() {
   const calendarRaw = fs.readFileSync("data_raw/match_calendar.json", "utf8");
   const matches = JSON.parse(calendarRaw);
 
+  if (!Array.isArray(matches) || matches.length === 0) {
+    throw new Error(
+      "match_calendar.json is leeg. Scraper stopt om bestaande ruwe data niet te overschrijven."
+    );
+  }
+
   const finishedMatches = matches.filter(
     (m) => m.homeScore !== null && m.awayScore !== null
   );
@@ -161,6 +167,12 @@ async function main() {
   console.log("📅 Gespeelde matchen:", finishedMatches.length);
 
   const outPath = "data_raw/match_events.csv";
+  const backupPath = outPath + ".bak";
+
+  if (fs.existsSync(outPath)) {
+    fs.copyFileSync(outPath, backupPath);
+    console.log(`🛟 Backup gemaakt: ${backupPath}`);
+  }
   const currentSeasonUrls = new Set(finishedMatches.map((m) => m.url).filter(Boolean));
 
   // ==== 5. Alleen data van deze kalender behouden en reeds gescrapete URLs skippen ====
