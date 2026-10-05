@@ -23,3 +23,16 @@ Voor een andere competitie kan de kalender tijdelijk worden overschreven:
 ```bash
 RBFA_CALENDAR_URL=https://www.rbfa.be/nl/competitie/CHP_xxxxxx/kalender npm run update:data
 ```
+
+## Problemen bij het ophalen
+
+De RBFA-pagina maakt de kalender-dropdown asynchroon aan. Het `<select>`-element
+kan dus al bestaan terwijl de 52 opties en de wedstrijden nog niet geladen zijn.
+De scraper wacht daarom eerst op de gevulde dropdown en gebruikt het
+`<select>`-element met de meeste opties. De eerste opties mogen een lege
+wedstrijdlijst tonen; de eigenlijke competitie begint momenteel pas bij optie 9.
+
+Een fout van `prod.nessie.fourcast.io` is afkomstig van RBFA-analytics en heeft
+geen invloed op de kalendergegevens. Als de volledige scrape toch leeg blijft,
+wordt `data_raw/match_calendar.json` niet overschreven. Zo ontstaat in de
+Python-verwerking niet langer de misleidende vervolgfout `KeyError: 'date'`.
