@@ -6,7 +6,7 @@ async function main() {
 
   const browser = await puppeteer.launch({
     headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-web-security"],
   });
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(30000);

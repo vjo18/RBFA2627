@@ -110,7 +110,7 @@ async function main() {
   // ==== 3. Browser opstarten, timeouts ruim ====
   const browser = await puppeteer.launch({
     headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-web-security"],
     protocolTimeout: 0, // <– voorkomt Runtime.callFunctionOn timed out
   });
 
