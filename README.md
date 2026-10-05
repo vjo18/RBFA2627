@@ -23,3 +23,11 @@ Voor een andere competitie kan de kalender tijdelijk worden overschreven:
 ```bash
 RBFA_CALENDAR_URL=https://www.rbfa.be/nl/competitie/CHP_xxxxxx/kalender npm run update:data
 ```
+
+## Problemen bij het ophalen
+
+Als RBFA een foutpagina terugstuurt of de opbouw van de kalenderpagina wijzigt,
+stopt de update nu meteen met een duidelijke foutmelding. Een lege scrape wordt
+niet meer over `data_raw/match_calendar.json` geschreven. Daardoor blijft de
+laatste geldige kalender behouden en verschijnt niet langer pas in de
+Python-verwerking de misleidende fout `KeyError: 'date'`.
