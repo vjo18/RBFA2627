@@ -132,6 +132,12 @@ if (!process.env.DISPLAY && process.env.RBFA_XVFB_CHILD !== "1") {
 
   await browser.close();
 
+  if (!Array.isArray(matchData) || matchData.length === 0) {
+    throw new Error(
+      "Kalenderscrape leverde 0 wedstrijden op. Bestaande match_calendar.json blijft onaangeroerd."
+    );
+  }
+
   fs.writeFileSync(
     "data_raw/match_calendar.json",
     JSON.stringify(matchData, null, 2),
