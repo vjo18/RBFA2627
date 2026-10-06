@@ -1,7 +1,8 @@
 """Wedstrijdverloop en veerkracht uit RBFA kalender + match-events.
 
-Geen externe packages nodig. Alleen volledige, met de eindstand overeenkomende
-doelpuntenreeksen tellen mee voor tijd-op-score en late puntenwissels.
+Alleen wedstrijden waarvan de doelpuntenevents de eindstand exact reconstrueren
+worden gebruikt. De export bevat checkpoints op 60, 75 en 85 minuten zodat de
+frontend late puntenwinst kan filteren op minuut en thuis/uit.
 """
 import csv
 import json
@@ -14,6 +15,7 @@ EVENTS = Path("data_raw/match_events.csv")
 OUTPUT = Path("public/data/match_flow.json")
 GOALS = {"Goal", "Penalty", "Own Goal"}
 TIMELINE_EVENTS = GOALS | {"Red Card", "Yellow-Red Card"}
+CHECKPOINTS = (60, 75, 85)
 
 
 def read_inputs(calendar_path=CALENDAR, events_path=EVENTS):
@@ -25,7 +27,6 @@ def read_inputs(calendar_path=CALENDAR, events_path=EVENTS):
 
 
 def match_minute(value):
-    """Normaliseer wedstrijdminuten (ook 45+2) naar de reguliere 0-90 minuten."""
     found = re.match(r"^\s*(\d+)(?:\s*\+\s*(\d+))?", str(value or ""))
     if not found:
         return None
@@ -46,7 +47,6 @@ def score_state(home_goals, away_goals):
 
 
 def compute_match_flow(calendar, raw_events):
-    """Bouw alle benodigde cijfers voor React, met kwaliteitscontrole per match."""
     if not isinstance(calendar, list) or not calendar:
         raise ValueError("Lege of ongeldige kalender: geen wedstrijdverloop exporteren")
 
@@ -56,7 +56,6 @@ def compute_match_flow(calendar, raw_events):
         if url:
             minute = match_minute(event.get("minute"))
             grouped[url].append((minute, index, event))
-
     for url in grouped:
         grouped[url].sort(key=lambda item: (item[0] is None, item[0] if item[0] is not None else 999, item[1]))
 
@@ -69,13 +68,11 @@ def compute_match_flow(calendar, raw_events):
     teams = {
         name: {
             "validMatches": 0,
-            "lateGained": 0,
-            "lateLost": 0,
-            "lateNet": 0,
             "minutes": {"leading": 0, "drawing": 0, "trailing": 0},
         }
         for name in all_teams
     }
+
     matches = []
     rejected = []
     seen = set()
@@ -90,18 +87,39 @@ def compute_match_flow(calendar, raw_events):
         if match.get("homeScore") in (None, "") or match.get("awayScore") in (None, ""):
             continue
         played += 1
+
         try:
             final_home, final_away = int(match["homeScore"]), int(match["awayScore"])
         except (ValueError, TypeError):
             continue
 
         score_home = score_away = 0
-        score_75_home = score_75_away = 0
         previous = 0
         home_minutes = {"leading": 0, "drawing": 0, "trailing": 0}
         chart = [{"minute": 0, "home": 0, "away": 0}]
         timeline = []
         invalid_event = False
+        checkpoint_scores = {str(c): {"home": 0, "away": 0} for c in CHECKPOINTS}
+
+        goal_events = []
+        for minute, index, event in grouped.get(url, []):
+            kind = str(event.get("event") or "").strip()
+            if kind in GOALS:
+                goal_events.append((minute, index, event))
+
+        # checkpointstanden komen rechtstreeks uit de chronologische doelpuntenreeks.
+        for checkpoint in CHECKPOINTS:
+            h = a = 0
+            for minute, _, event in goal_events:
+                if minute is None or minute > checkpoint:
+                    continue
+                side = str(event.get("team") or "").strip()
+                # RBFA-export: bij Own Goal is team de begunstigde ploeg.
+                if side == home:
+                    h += 1
+                elif side == away:
+                    a += 1
+            checkpoint_scores[str(checkpoint)] = {"home": h, "away": a}
 
         for minute, _, event in grouped.get(url, []):
             kind = str(event.get("event") or "").strip()
@@ -119,12 +137,8 @@ def compute_match_flow(calendar, raw_events):
                 previous = minute
                 if side == home:
                     score_home += 1
-                    if minute <= 75:
-                        score_75_home += 1
                 else:
                     score_away += 1
-                    if minute <= 75:
-                        score_75_away += 1
 
                 if chart[-1]["minute"] == minute:
                     chart[-1]["home"] = score_home
@@ -142,7 +156,6 @@ def compute_match_flow(calendar, raw_events):
             })
 
         home_minutes[score_state(score_home, score_away)] += max(0, 90 - previous)
-
         if chart[-1]["minute"] < 90:
             chart.append({"minute": 90, "home": score_home, "away": score_away})
 
@@ -160,7 +173,7 @@ def compute_match_flow(calendar, raw_events):
             "away": away,
             "final": {"home": final_home, "away": final_away},
             "valid": valid,
-            "scoreAt75": {"home": score_75_home, "away": score_75_away} if valid else None,
+            "checkpoints": checkpoint_scores if valid else None,
             "chart": chart,
             "timeline": timeline,
         }
@@ -175,20 +188,11 @@ def compute_match_flow(calendar, raw_events):
             "drawing": home_minutes["drawing"],
             "trailing": home_minutes["leading"],
         }
-        for name, current, opponent, final_goals, final_against, at75, at75_against, mins in (
-            (home, "home", "away", final_home, final_away, score_75_home, score_75_away, home_minutes),
-            (away, "away", "home", final_away, final_home, score_75_away, score_75_home, minutes_away),
-        ):
-            before = points(at75, at75_against)
-            after = points(final_goals, final_against)
-            swing = after - before
-            record = teams[name]
-            record["validMatches"] += 1
-            record["lateGained"] += max(swing, 0)
-            record["lateLost"] += max(-swing, 0)
-            record["lateNet"] += swing
-            for state in mins:
-                record["minutes"][state] += mins[state]
+        teams[home]["validMatches"] += 1
+        teams[away]["validMatches"] += 1
+        for state in home_minutes:
+            teams[home]["minutes"][state] += home_minutes[state]
+            teams[away]["minutes"][state] += minutes_away[state]
 
         result["minutesHome"] = home_minutes
         result["minutesAway"] = minutes_away
@@ -204,6 +208,7 @@ def compute_match_flow(calendar, raw_events):
             "excludedMatches": len(rejected),
             "excludedUrls": rejected,
         },
+        "checkpoints": list(CHECKPOINTS),
         "teams": teams,
         "matches": matches,
     }
