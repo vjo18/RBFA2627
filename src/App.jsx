@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import MatchFlowSection from "./MatchFlowSection";
+import StartingXIHeatmap from "./StartingXIHeatmap";
 import {
   LineChart, Line,
   ScatterChart, Scatter,
@@ -2353,6 +2354,7 @@ export default function App() {
   const [substitutionStats, setSubstitutionStats] = useState(null);
   const [supersubsTop10, setSupersubsTop10] = useState([]);
   const [matchFlow, setMatchFlow] = useState(null);
+  const [lineupHeatmap, setLineupHeatmap] = useState(null);
 
 
 
@@ -2360,7 +2362,7 @@ export default function App() {
     let alive = true;
     (async () => {
       const [
-        ts, h, ha, eb, fs, hf, ps, tp, te, rs, calendarCsv, subs, supersubs, flow,
+        ts, h, ha, eb, fs, hf, ps, tp, te, rs, calendarCsv, subs, supersubs, flow, lineup,
       ] = await Promise.all([
         fetch("data/team_stats.json").then(r => r.json()),
         fetch("data/h2h.json").then(r => r.json()),
@@ -2376,6 +2378,7 @@ export default function App() {
         fetch("data/team_substitutions.json").then(r => r.json()),
         fetch("data/supersubs_top10.json").then(r => r.json()),
         fetch("data/match_flow.json").then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch("data/team_lineup_heatmap.json").then(r => r.ok ? r.json() : null).catch(() => null),
       ]);
 
       if (!alive) return;
@@ -2393,6 +2396,7 @@ export default function App() {
       setSubstitutionStats(subs);
       setSupersubsTop10(supersubs || []);
       setMatchFlow(flow);
+      setLineupHeatmap(lineup);
     })();
     return () => { alive = false; };
   }, []);
@@ -3264,6 +3268,8 @@ const teamXppmBoxData = useMemo(() => {
             stableFromMatchday={projectedXPtsStability.stableFromMatchday}
           />
         </section>
+
+        <StartingXIHeatmap data={lineupHeatmap} team={team} />
 
         {/* Filters voor beide spelerstabellen */}
         <section className="mb-3">
