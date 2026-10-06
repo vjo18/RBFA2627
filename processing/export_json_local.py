@@ -9,6 +9,7 @@ from match_flow import build_match_flow
 from lineup_heatmap import build_lineup_heatmap
 from build_player_stats import (
     compute_rapm_from_logs,
+    player_key,
     PLAYER_INPUT,
     MATCH_EVENTS,
     load_calendar,
@@ -1143,11 +1144,11 @@ def export_rapm_segments_all(xfile: str, dst: Path):
         # spelers van deze ploeg, gesorteerd op RAPM_per90
         players_list = sorted(
             team_players,
-            key=lambda p: float(rapm.get(p, 0.0)),
+            key=lambda p: float(rapm.get(player_key(team, p), 0.0)),
             reverse=True,
         )
         players_json = [
-            {"name": p, "rapm_per90": float(rapm.get(p, 0.0))}
+            {"name": p, "rapm_per90": float(rapm.get(player_key(team, p), 0.0))}
             for p in players_list
         ]
 
