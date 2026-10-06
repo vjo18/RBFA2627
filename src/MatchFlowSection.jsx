@@ -104,12 +104,13 @@ function ScoreStateBars({ rows, selectedTeam }) {
   );
 }
 
-function MatchScoreTimeline({ match, team }) {
+function MatchScoreTimeline({ match, team, checkpoint }) {
   if (!match) return <p className="text-gray-500 text-sm">Geen gevalideerde wedstrijd beschikbaar.</p>;
 
   const home = match.home === team;
-  const own75 = home ? match.scoreAt75.home : match.scoreAt75.away;
-  const opp75 = home ? match.scoreAt75.away : match.scoreAt75.home;
+  const checkpointScore = match.checkpoints?.[String(checkpoint)] || match.scoreAt75 || { home: 0, away: 0 };
+  const own75 = home ? checkpointScore.home : checkpointScore.away;
+  const opp75 = home ? checkpointScore.away : checkpointScore.home;
   const ownFinal = home ? match.final.home : match.final.away;
   const oppFinal = home ? match.final.away : match.final.home;
   const swing = scorePoints(ownFinal, oppFinal) - scorePoints(own75, opp75);
@@ -130,11 +131,11 @@ function MatchScoreTimeline({ match, team }) {
           <p className="text-xs text-gray-500">{match.date}</p>
         </div>
         <div className={`text-sm font-semibold rounded-lg px-3 py-2 ${swing > 0 ? "bg-emerald-50 text-emerald-700" : swing < 0 ? "bg-rose-50 text-rose-700" : "bg-gray-100 text-gray-600"}`}>
-          {swing === 0 ? "Geen puntenverschil na 75′" : `${scoreValue(swing)} punt${Math.abs(swing) === 1 ? "" : "en"} na 75′`}
+          {swing === 0 ? "Geen puntenverschil na ${checkpoint}′" : `${scoreValue(swing)} punt${Math.abs(swing) === 1 ? "" : "en"} na ${checkpoint}′`}
         </div>
       </div>
       <div className="mb-2 text-xs text-gray-600">
-        Stand op 75′: {match.scoreAt75.home}–{match.scoreAt75.away} · Eindstand: {match.final.home}–{match.final.away}
+        Stand op {checkpoint}′: {checkpointScore.home}–{checkpointScore.away} · Eindstand: {match.final.home}–{match.final.away}
       </div>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -146,7 +147,7 @@ function MatchScoreTimeline({ match, team }) {
               labelFormatter={(minute) => `${minute}′`}
               formatter={(value, key) => [value, key]}
             />
-            <ReferenceLine x={75} stroke="#c28a36" strokeDasharray="4 4" label={{ value: "75′", position: "insideTopRight", fontSize: 11 }} />
+            <ReferenceLine x={checkpoint} stroke="#c28a36" strokeDasharray="4 4" label={{ value: `${checkpoint}′`, position: "insideTopRight", fontSize: 11 }} />
             <Line type="stepAfter" dataKey="own" name={team} stroke="#059669" strokeWidth={3} dot={{ r: 3 }} isAnimationActive={false} />
             <Line type="stepAfter" dataKey="opponent" name={home ? match.away : match.home} stroke="#64748b" strokeWidth={2} dot={{ r: 3 }} isAnimationActive={false} />
           </LineChart>
@@ -182,8 +183,42 @@ function MatchScoreTimeline({ match, team }) {
   );
 }
 
+const buildLateRanking = (data, checkpoint, venue) => {
+  const rows = {};
+  Object.keys(data?.teams || {}).forEach((team) => {
+    rows[team] = { team, lateNet: 0, lateGained: 0, lateLost: 0, matches: 0 };
+  });
+
+  (data?.matches || []).forEach((match) => {
+    if (!match.valid) return;
+    const at = match.checkpoints?.[String(checkpoint)];
+    if (!at) return;
+
+    ["home", "away"].forEach((side) => {
+      if (venue !== "all" && venue !== side) return;
+      const team = match[side];
+      if (!rows[team]) return;
+      const ownAt = side === "home" ? at.home : at.away;
+      const oppAt = side === "home" ? at.away : at.home;
+      const ownFinal = side === "home" ? match.final.home : match.final.away;
+      const oppFinal = side === "home" ? match.final.away : match.final.home;
+      const swing = scorePoints(ownFinal, oppFinal) - scorePoints(ownAt, oppAt);
+      rows[team].lateNet += swing;
+      rows[team].lateGained += Math.max(swing, 0);
+      rows[team].lateLost += Math.max(-swing, 0);
+      rows[team].matches += 1;
+    });
+  });
+
+  return Object.values(rows)
+    .filter((row) => row.matches > 0)
+    .sort((a, b) => b.lateNet - a.lateNet || b.lateGained - a.lateGained || a.team.localeCompare(b.team));
+};
+
 export default function MatchFlowSection({ data, selectedTeam }) {
   const [selectedUrl, setSelectedUrl] = useState("");
+  const [checkpoint, setCheckpoint] = useState(75);
+  const [venue, setVenue] = useState("all");
   const teams = data?.teams || {};
   const records = useMemo(
     () => Object.entries(teams)
@@ -192,9 +227,10 @@ export default function MatchFlowSection({ data, selectedTeam }) {
     [teams]
   );
   const ranking = useMemo(
-    () => [...records].sort((a, b) => b.lateNet - a.lateNet || b.lateGained - a.lateGained || a.team.localeCompare(b.team)),
-    [records]
+    () => buildLateRanking(data, checkpoint, venue),
+    [data, checkpoint, venue]
   );
+  const selectedLate = ranking.find((row) => row.team === selectedTeam);
   const sortedState = useMemo(
     () => [...records].sort((a, b) =>
       (b.minutes.leading / (b.validMatches * 90)) - (a.minutes.leading / (a.validMatches * 90)) ||
@@ -221,6 +257,7 @@ export default function MatchFlowSection({ data, selectedTeam }) {
   const record = teams[selectedTeam];
   const total = record ? Object.values(record.minutes).reduce((a, b) => a + b, 0) : 0;
   const percentage = (name) => total ? (100 * record.minutes[name] / total).toFixed(1) : "0.0";
+  const venueLabel = venue === "home" ? "thuis" : venue === "away" ? "uit" : "thuis + uit";
 
   return (
     <section className="mb-10" aria-label="Wedstrijdverloop en veerkracht">
@@ -241,7 +278,7 @@ export default function MatchFlowSection({ data, selectedTeam }) {
       {record?.validMatches > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-sm px-4 py-3">
-            <div className="text-xs text-gray-500">Puntensaldo na 75′ · {selectedTeam}</div>
+            <div className="text-xs text-gray-500">Puntensaldo na ${checkpoint}′ · {selectedTeam}</div>
             <div className={`text-2xl font-bold mt-1 ${record.lateNet >= 0 ? "text-emerald-700" : "text-rose-700"}`}>{scoreValue(record.lateNet)}</div>
             <div className="text-xs text-gray-500">{record.lateGained} gewonnen · {record.lateLost} verloren</div>
           </div>
@@ -259,9 +296,29 @@ export default function MatchFlowSection({ data, selectedTeam }) {
       )}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
         <Panel
-          title="Ranglijst — punten na minuut 75"
-          description="Virtuele puntenstand op 75′ vergeleken met de eindstand; + is gewonnen, − is verloren."
+          title={`Ranglijst — punten vanaf minuut ${checkpoint}`}
+          description={`Virtuele puntenstand op ${checkpoint}′ vergeleken met de eindstand · ${venueLabel}.`}
         >
+          <div className="flex flex-wrap gap-2 mb-4">
+            <select
+              className="rounded-lg border border-gray-200 px-2 py-1.5 text-xs bg-white"
+              value={checkpoint}
+              onChange={(event) => setCheckpoint(Number(event.target.value))}
+            >
+              <option value={60}>Vanaf 60′</option>
+              <option value={75}>Vanaf 75′</option>
+              <option value={85}>Vanaf 85′</option>
+            </select>
+            <select
+              className="rounded-lg border border-gray-200 px-2 py-1.5 text-xs bg-white"
+              value={venue}
+              onChange={(event) => setVenue(event.target.value)}
+            >
+              <option value="all">Thuis + uit</option>
+              <option value="home">Thuis</option>
+              <option value="away">Uit</option>
+            </select>
+          </div>
           <LatePointsRanking rows={ranking} selectedTeam={selectedTeam} />
         </Panel>
         <Panel
@@ -294,10 +351,10 @@ export default function MatchFlowSection({ data, selectedTeam }) {
             </option>
           ))}
         </select>
-        <MatchScoreTimeline match={selectedMatch} team={selectedTeam} />
+        <MatchScoreTimeline match={selectedMatch} team={selectedTeam} checkpoint={checkpoint} />
       </Panel>
       <p className="mt-2 text-xs text-gray-400">
-        Puntensaldo na 75′ = eindpunten minus punten op 75′, per wedstrijd opgeteld.
+        Puntensaldo na ${checkpoint}′ = eindpunten minus punten op 75′, per wedstrijd opgeteld.
         Een doelpunt exact op 75′ telt bij de stand op 75′.
         Scoreminuten zijn benaderd met officiële doelpuntminuten; blessuretijd wordt samengevoegd met minuut 90.
       </p>
