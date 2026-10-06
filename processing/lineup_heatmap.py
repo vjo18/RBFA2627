@@ -63,7 +63,8 @@ def build_lineup_heatmap(player_path=PLAYER_INPUT, calendar_path=CALENDAR, outpu
                     minutes = 0
                 else:
                     row = rows.iloc[0]
-                    minutes = int(pd.to_numeric(row.get("Minutes Played"), errors="coerce") or 0)
+                    raw_minutes = pd.to_numeric(row.get("Minutes Played"), errors="coerce")
+                    minutes = int(raw_minutes) if pd.notna(raw_minutes) else 0
                     if bool(row.get("Starting Player")):
                         status = "start"
                         total_starts += 1
