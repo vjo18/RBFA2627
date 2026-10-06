@@ -40,8 +40,8 @@ class MatchFlowTests(unittest.TestCase):
             [event(10, "Team A"), event(30, "Team B"), event(80, "Team B")],
         )
         self.assertEqual(data["quality"]["validatedMatches"], 1)
-        self.assertEqual(data["teams"]["Team A"]["lateNet"], -1)
-        self.assertEqual(data["teams"]["Team B"]["lateNet"], 2)
+        self.assertEqual(data["matches"][0]["checkpoints"]["75"], {"home": 1, "away": 1})
+        self.assertEqual(data["matches"][0]["checkpoints"]["85"], {"home": 1, "away": 2})
         self.assertEqual(
             data["teams"]["Team A"]["minutes"],
             {"leading": 20, "drawing": 60, "trailing": 10},
@@ -51,7 +51,7 @@ class MatchFlowTests(unittest.TestCase):
         # RBFA registreert het team dat de goal krijgt bij een eigen doelpunt.
         data = compute_match_flow(match(0, 1), [event(75, "Team B", "Own Goal")])
         self.assertEqual(data["quality"]["validatedMatches"], 1)
-        self.assertEqual(data["teams"]["Team B"]["lateNet"], 0)
+        self.assertEqual(data["matches"][0]["checkpoints"]["75"], {"home": 0, "away": 1})
         self.assertEqual(data["teams"]["Team B"]["minutes"]["leading"], 15)
 
     def test_incomplete_goal_events_not_counted(self):
