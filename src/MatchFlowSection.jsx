@@ -131,7 +131,7 @@ function MatchScoreTimeline({ match, team, checkpoint }) {
           <p className="text-xs text-gray-500">{match.date}</p>
         </div>
         <div className={`text-sm font-semibold rounded-lg px-3 py-2 ${swing > 0 ? "bg-emerald-50 text-emerald-700" : swing < 0 ? "bg-rose-50 text-rose-700" : "bg-gray-100 text-gray-600"}`}>
-          {swing === 0 ? "Geen puntenverschil na ${checkpoint}′" : `${scoreValue(swing)} punt${Math.abs(swing) === 1 ? "" : "en"} na ${checkpoint}′`}
+          {swing === 0 ? `Geen puntenverschil na ${checkpoint}′` : `${scoreValue(swing)} punt${Math.abs(swing) === 1 ? "" : "en"} na ${checkpoint}′`}
         </div>
       </div>
       <div className="mb-2 text-xs text-gray-600">
@@ -278,9 +278,9 @@ export default function MatchFlowSection({ data, selectedTeam }) {
       {record?.validMatches > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-sm px-4 py-3">
-            <div className="text-xs text-gray-500">Puntensaldo na ${checkpoint}′ · {selectedTeam}</div>
-            <div className={`text-2xl font-bold mt-1 ${record.lateNet >= 0 ? "text-emerald-700" : "text-rose-700"}`}>{scoreValue(record.lateNet)}</div>
-            <div className="text-xs text-gray-500">{record.lateGained} gewonnen · {record.lateLost} verloren</div>
+            <div className="text-xs text-gray-500">Puntensaldo vanaf {checkpoint}′ · {venueLabel}</div>
+            <div className={`text-2xl font-bold mt-1 ${(selectedLate?.lateNet || 0) >= 0 ? "text-emerald-700" : "text-rose-700"}`}>{scoreValue(selectedLate?.lateNet || 0)}</div>
+            <div className="text-xs text-gray-500">{selectedLate?.lateGained || 0} gewonnen · {selectedLate?.lateLost || 0} verloren</div>
           </div>
           <div className="rounded-xl bg-white ring-1 ring-black/5 shadow-sm px-4 py-3">
             <div className="text-xs text-gray-500">Minuten op voorsprong</div>
