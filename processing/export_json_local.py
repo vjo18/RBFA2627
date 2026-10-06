@@ -960,11 +960,13 @@ def export_player_stats_all(xfile: str, dst: Path):
         "RAPM_CI_low": "RAPM_CI_low",
         "RAPM_CI_high": "RAPM_CI_high",
         "RAPM_z": "RAPM_z",
+        "RAPM_sign_stability": "RAPM_sign_stability",
         "xPPM_per90": "xPPM_per90",
         "xPPM_SE": "xPPM_SE",
         "xPPM_CI_low": "xPPM_CI_low",
         "xPPM_CI_high": "xPPM_CI_high",
         "xPPM_z": "xPPM_z",
+        "xPPM_sign_stability": "xPPM_sign_stability",
 
 
     }
@@ -1007,11 +1009,13 @@ def export_player_stats_all(xfile: str, dst: Path):
         "RAPM_CI_low",
         "RAPM_CI_high",
         "RAPM_z",
+        "RAPM_sign_stability",
         "xPPM_per90",
         "xPPM_SE",
         "xPPM_CI_low",
         "xPPM_CI_high",
         "xPPM_z",
+        "xPPM_sign_stability",
     ]
 
 
