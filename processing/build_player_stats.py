@@ -811,6 +811,17 @@ def compute_xppm_from_segments(seg_df, alpha: float = XPPM_RIDGE_ALPHA):
 
 
 # --------------------------------------------------------------------
+# Robuuste impactmodellen v2.
+# De publieke functienamen blijven dezelfde zodat export_json_local.py en
+# bestaande callers backwards compatible blijven.
+# --------------------------------------------------------------------
+from player_impact import (
+    compute_rapm_from_logs,
+    compute_xppm_from_segments,
+    player_key,
+)
+
+# --------------------------------------------------------------------
 # hoofd-functie: aggregaties per speler + RAPM_per90
 # --------------------------------------------------------------------
 def build_player_stats():
@@ -974,8 +985,9 @@ def build_player_stats():
         rapm_ci_low = rapm_dict.get("total_ci_low", pd.Series(dtype=float))
         rapm_ci_high = rapm_dict.get("total_ci_high", pd.Series(dtype=float))
         rapm_z = rapm_dict.get("total_z", pd.Series(dtype=float))
+        rapm_sign = rapm_dict.get("total_sign_stability", pd.Series(dtype=float))
 
-        # 🔽 NIEUW: xPPM uit dezelfde segmenten
+        # xPPM-veldnaam blijft behouden; inhoudelijk is dit nu xPts/EPA per 90.
         xppm_dict, _ = compute_xppm_from_segments(seg_df)
 
         xppm_val = xppm_dict.get("xppm", pd.Series(dtype=float))
@@ -983,6 +995,7 @@ def build_player_stats():
         xppm_ci_low  = xppm_dict.get("ci_low", pd.Series(dtype=float))
         xppm_ci_high = xppm_dict.get("ci_high", pd.Series(dtype=float))
         xppm_z   = xppm_dict.get("z", pd.Series(dtype=float))
+        xppm_sign = xppm_dict.get("sign_stability", pd.Series(dtype=float))
 
     except Exception as e:
         print(f"[WARN] RAPM/xPPM kon niet berekend worden: {e}")
@@ -993,30 +1006,35 @@ def build_player_stats():
         rapm_ci_low = pd.Series(dtype=float)
         rapm_ci_high = pd.Series(dtype=float)
         rapm_z = pd.Series(dtype=float)
+        rapm_sign = pd.Series(dtype=float)
 
         xppm_val = pd.Series(dtype=float)
         xppm_se = pd.Series(dtype=float)
         xppm_ci_low = pd.Series(dtype=float)
         xppm_ci_high = pd.Series(dtype=float)
         xppm_z = pd.Series(dtype=float)
+        xppm_sign = pd.Series(dtype=float)
 
 
-    out["RAPM_per90"]       = out["Speler"].map(rapm_tot).round(3)
-    out["RAPM_off_per90"]   = out["Speler"].map(rapm_off).round(3)
-    out["RAPM_def_per90"]   = out["Speler"].map(rapm_def).round(3)
+    impact_keys = out.apply(lambda r: player_key(r["Team"], r["Speler"]), axis=1)
+    out["RAPM_per90"]       = impact_keys.map(rapm_tot).round(3)
+    out["RAPM_off_per90"]   = impact_keys.map(rapm_off).round(3)
+    out["RAPM_def_per90"]   = impact_keys.map(rapm_def).round(3)
 
     # nieuwe onzekerheidskolommen
-    out["RAPM_SE_per90"]    = out["Speler"].map(rapm_se).round(3)
-    out["RAPM_CI_low"]      = out["Speler"].map(rapm_ci_low).round(3)
-    out["RAPM_CI_high"]     = out["Speler"].map(rapm_ci_high).round(3)
-    out["RAPM_z"]           = out["Speler"].map(rapm_z).round(2)
+    out["RAPM_SE_per90"]    = impact_keys.map(rapm_se).round(3)
+    out["RAPM_CI_low"]      = impact_keys.map(rapm_ci_low).round(3)
+    out["RAPM_CI_high"]     = impact_keys.map(rapm_ci_high).round(3)
+    out["RAPM_z"]           = impact_keys.map(rapm_z).round(2)
+    out["RAPM_sign_stability"] = impact_keys.map(rapm_sign).round(3)
 
-    # 🔽 NIEUW: xPPM
-    out["xPPM_per90"]       = out["Speler"].map(xppm_val).round(3)
-    out["xPPM_SE"]          = out["Speler"].map(xppm_se).round(3)
-    out["xPPM_CI_low"]      = out["Speler"].map(xppm_ci_low).round(3)
-    out["xPPM_CI_high"]     = out["Speler"].map(xppm_ci_high).round(3)
-    out["xPPM_z"]           = out["Speler"].map(xppm_z).round(2)
+    # xPPM-naam is backwards compatible; inhoudelijk Expected Points Added / 90.
+    out["xPPM_per90"]       = impact_keys.map(xppm_val).round(3)
+    out["xPPM_SE"]          = impact_keys.map(xppm_se).round(3)
+    out["xPPM_CI_low"]      = impact_keys.map(xppm_ci_low).round(3)
+    out["xPPM_CI_high"]     = impact_keys.map(xppm_ci_high).round(3)
+    out["xPPM_z"]           = impact_keys.map(xppm_z).round(2)
+    out["xPPM_sign_stability"] = impact_keys.map(xppm_sign).round(3)
 
 
     # 6) wegschrijven
