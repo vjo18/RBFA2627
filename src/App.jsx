@@ -1764,10 +1764,12 @@ function PlayerRapmTable({ rows, minMinutes }) {
       const rapm    = toNum(r.RAPM_per90);
       const rapmSe  = toNum(r.RAPM_SE_per90 ?? r.RAPM_SE);
       const rapmZ   = toNum(r.RAPM_z);
+      const rapmSign = toNum(r.RAPM_sign_stability);
 
       const xppm    = toNum(r["xPPM_per90"] ?? r["XPPM_per90"]);
       const xppmSe  = toNum(r["xPPM_SE"] ?? r["xPPM_SE_per90"] ?? r["XPPM_SE"]);
       const xppmZ   = toNum(r["xPPM_z"] ?? r["XPPM_z"]);
+      const xppmSign = toNum(r["xPPM_sign_stability"]);
 
       const mins    = toNum(r.Speelminuten ?? r.Minutes);
 
@@ -1779,9 +1781,11 @@ function PlayerRapmTable({ rows, minMinutes }) {
         rapm,
         rapmSe,
         rapmZ,
+        rapmSign,
         xppm,
         xppmSe,
         xppmZ,
+        xppmSign,
       };
     })
     // alleen spelers met minstens één van de twee metrics
@@ -1795,9 +1799,11 @@ function PlayerRapmTable({ rows, minMinutes }) {
           case "rapm":   return obj.rapm ?? 0;
           case "rapmSe": return obj.rapmSe ?? 0;
           case "rapmZ":  return obj.rapmZ ?? 0;
+          case "rapmSign": return obj.rapmSign ?? 0;
           case "xppm":   return obj.xppm ?? 0;
           case "xppmSe": return obj.xppmSe ?? 0;
           case "xppmZ":  return obj.xppmZ ?? 0;
+          case "xppmSign": return obj.xppmSign ?? 0;
           default:       return obj.rapm ?? 0;
         }
       };
@@ -1836,7 +1842,7 @@ function PlayerRapmTable({ rows, minMinutes }) {
     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
       <div className="px-4 py-2 border-b border-gray-100 flex items-center justify-between">
         <h3 className="text-lg font-semibold">
-          Spelersimpact (RAPM & xPPM) + betrouwbaarheid
+          Spelersimpact — RAPM & xPts-EPA
         </h3>
         <div className="text-xs text-gray-500">
           Min. minuten voor “stabiel”: {Math.round(minMinutes ?? 0)} min
@@ -1879,12 +1885,19 @@ function PlayerRapmTable({ rows, minMinutes }) {
               >
                 z-score {sortArrow("rapmZ")}
               </th>
+              <th
+                className="px-2 py-1 text-right cursor-pointer select-none"
+                onClick={() => onSort("rapmSign")}
+                title="Aandeel bootstrap-runs met hetzelfde teken als de puntschatting"
+              >
+                stab. {sortArrow("rapmSign")}
+              </th>
 
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
                 onClick={() => onSort("xppm")}
               >
-                xPPM / 90 {sortArrow("xppm")}
+                xPts-EPA / 90 {sortArrow("xppm")}
               </th>
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
@@ -1897,6 +1910,13 @@ function PlayerRapmTable({ rows, minMinutes }) {
                 onClick={() => onSort("xppmZ")}
               >
                 z-score {sortArrow("xppmZ")}
+              </th>
+              <th
+                className="px-2 py-1 text-right cursor-pointer select-none"
+                onClick={() => onSort("xppmSign")}
+                title="Aandeel bootstrap-runs met hetzelfde teken als de puntschatting"
+              >
+                stab. {sortArrow("xppmSign")}
               </th>
             </tr>
           </thead>
@@ -1925,6 +1945,9 @@ function PlayerRapmTable({ rows, minMinutes }) {
                 <td className="px-2 py-1 text-right">
                   {p.rapmZ !== null ? p.rapmZ.toFixed(2) : "—"}
                 </td>
+                <td className="px-2 py-1 text-right">
+                  {p.rapmSign !== null ? `${Math.round(p.rapmSign * 100)}%` : "—"}
+                </td>
 
                 <td className="px-2 py-1 text-right">
                   {p.xppm !== null ? p.xppm.toFixed(2) : "—"}
@@ -1935,6 +1958,9 @@ function PlayerRapmTable({ rows, minMinutes }) {
                 <td className="px-2 py-1 text-right">
                   {p.xppmZ !== null ? p.xppmZ.toFixed(2) : "—"}
                 </td>
+                <td className="px-2 py-1 text-right">
+                  {p.xppmSign !== null ? `${Math.round(p.xppmSign * 100)}%` : "—"}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -1942,10 +1968,10 @@ function PlayerRapmTable({ rows, minMinutes }) {
       </div>
 
       <div className="px-4 pb-2 pt-2 text-[11px] text-gray-500 space-y-1">
-        <p>• RAPM = impact op doelpuntensaldo per 90 min.</p>
-        <p>• xPPM = impact op expected points per 90 min (meer datapunten, vaak stabieler).</p>
-        <p>• z-score ≈ aantal standaardafwijkingen verschil met 0 (|z| ≥ 2 = sterk signaal).</p>
-        <p>• SE = standaardfout van de schatting (lager = betrouwbaarder).</p>
+        <p>• RAPM = ridge-gecorrigeerde impact op doelpuntensaldo per 90 min, met pre-match ELO als control.</p>
+        <p>• xPts-EPA = verandering in verwachte punten uit minuut, score, thuis/uit, spelersaantal en pre-match ELO; de CSV-key blijft xPPM voor backwards compatibility.</p>
+        <p>• Alpha wordt via cross-validatie per wedstrijd gekozen. SE/interval komt uit een bootstrap die volledige wedstrijden resamplet.</p>
+        <p>• stab. = percentage bootstrap-runs waarin het effect hetzelfde teken houdt. Bij weinig wedstrijden blijft voorzichtig interpreteren.</p>
       </div>
     </div>
   );
