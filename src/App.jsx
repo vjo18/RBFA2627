@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import MatchFlowSection from "./MatchFlowSection";
 import {
   LineChart, Line,
   ScatterChart, Scatter,
@@ -2351,6 +2352,7 @@ export default function App() {
   const [calendarRows, setCalendarRows] = useState([]);
   const [substitutionStats, setSubstitutionStats] = useState(null);
   const [supersubsTop10, setSupersubsTop10] = useState([]);
+  const [matchFlow, setMatchFlow] = useState(null);
 
 
 
@@ -2358,7 +2360,7 @@ export default function App() {
     let alive = true;
     (async () => {
       const [
-        ts, h, ha, eb, fs, hf, ps, tp, te, rs, calendarCsv, subs, supersubs,
+        ts, h, ha, eb, fs, hf, ps, tp, te, rs, calendarCsv, subs, supersubs, flow,
       ] = await Promise.all([
         fetch("data/team_stats.json").then(r => r.json()),
         fetch("data/h2h.json").then(r => r.json()),
@@ -2373,6 +2375,7 @@ export default function App() {
         fetch("data/data_team.csv").then(r => r.text()),
         fetch("data/team_substitutions.json").then(r => r.json()),
         fetch("data/supersubs_top10.json").then(r => r.json()),
+        fetch("data/match_flow.json").then(r => r.ok ? r.json() : null).catch(() => null),
       ]);
 
       if (!alive) return;
@@ -2389,6 +2392,7 @@ export default function App() {
       setCalendarRows(parseCsv(calendarCsv));
       setSubstitutionStats(subs);
       setSupersubsTop10(supersubs || []);
+      setMatchFlow(flow);
     })();
     return () => { alive = false; };
   }, []);
@@ -3174,6 +3178,7 @@ const teamXppmBoxData = useMemo(() => {
 </div>
 </section>
         <section className="mb-10"><EventHeatmap rec={myEvent} /></section>
+        <MatchFlowSection data={matchFlow} selectedTeam={team} />
 
         <section className="mb-10">
           <TeamSubstitutionMoments
