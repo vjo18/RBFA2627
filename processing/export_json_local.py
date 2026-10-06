@@ -5,6 +5,7 @@ from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 import os
 import shutil
 
+from match_flow import build_match_flow
 from build_player_stats import (
     compute_rapm_from_logs,
     PLAYER_INPUT,
@@ -1370,10 +1371,11 @@ def main():
     export_substitution_stats_all(x, od / "team_substitutions.json")
     export_supersubs_top10(x, od / "supersubs_top10.json")
     export_data_team_csv(od / "data_team.csv")
+    build_match_flow(output_path=od / "match_flow.json")
     print(
         "OK → team_stats, h2h, homeaway, event_bins, first_scorer, "
         "halftime_fulltime, player_stats, team_points, team_elo, "
-        "team_rapm_segments, team_substitutions, supersubs_top10, data_team.csv"
+        "team_rapm_segments, team_substitutions, supersubs_top10, match_flow, data_team.csv"
     )
 
 
