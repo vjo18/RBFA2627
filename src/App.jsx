@@ -1762,13 +1762,13 @@ function PlayerRapmTable({ rows, minMinutes }) {
   const memo = React.useMemo(() => {
     const enriched = (rows || []).map((r) => {
       const rapm    = toNum(r.RAPM_per90);
-      const rapmSe  = toNum(r.RAPM_SE_per90 ?? r.RAPM_SE);
-      const rapmZ   = toNum(r.RAPM_z);
+      const rapmCiLow = toNum(r.RAPM_CI_low);
+      const rapmCiHigh = toNum(r.RAPM_CI_high);
       const rapmSign = toNum(r.RAPM_sign_stability);
 
       const xppm    = toNum(r["xPPM_per90"] ?? r["XPPM_per90"]);
-      const xppmSe  = toNum(r["xPPM_SE"] ?? r["xPPM_SE_per90"] ?? r["XPPM_SE"]);
-      const xppmZ   = toNum(r["xPPM_z"] ?? r["XPPM_z"]);
+      const xppmCiLow = toNum(r["xPPM_CI_low"] ?? r["XPPM_CI_low"]);
+      const xppmCiHigh = toNum(r["xPPM_CI_high"] ?? r["XPPM_CI_high"]);
       const xppmSign = toNum(r["xPPM_sign_stability"]);
 
       const mins    = toNum(r.Speelminuten ?? r.Minutes);
@@ -1779,12 +1779,12 @@ function PlayerRapmTable({ rows, minMinutes }) {
         type: r.Type,
         mins,
         rapm,
-        rapmSe,
-        rapmZ,
+        rapmCiLow,
+        rapmCiHigh,
         rapmSign,
         xppm,
-        xppmSe,
-        xppmZ,
+        xppmCiLow,
+        xppmCiHigh,
         xppmSign,
       };
     })
@@ -1797,12 +1797,8 @@ function PlayerRapmTable({ rows, minMinutes }) {
           case "name":   return obj.name || "";
           case "mins":   return obj.mins ?? -1;
           case "rapm":   return obj.rapm ?? 0;
-          case "rapmSe": return obj.rapmSe ?? 0;
-          case "rapmZ":  return obj.rapmZ ?? 0;
           case "rapmSign": return obj.rapmSign ?? 0;
           case "xppm":   return obj.xppm ?? 0;
-          case "xppmSe": return obj.xppmSe ?? 0;
-          case "xppmZ":  return obj.xppmZ ?? 0;
           case "xppmSign": return obj.xppmSign ?? 0;
           default:       return obj.rapm ?? 0;
         }
@@ -1840,12 +1836,34 @@ function PlayerRapmTable({ rows, minMinutes }) {
 
   return (
     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
-      <div className="px-4 py-2 border-b border-gray-100 flex items-center justify-between">
-        <h3 className="text-lg font-semibold">
-          Spelersimpact — RAPM & xPts-EPA
-        </h3>
+      <div className="px-4 py-3 border-b border-gray-100 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h3 className="text-lg font-semibold">Spelersimpact — RAPM & xPts</h3>
+          <p className="text-xs text-gray-500 mt-1">
+            Twee complementaire modelschattingen: impact op doelpuntensaldo en impact op verwachte wedstrijdpunten.
+          </p>
+        </div>
         <div className="text-xs text-gray-500">
           Min. minuten voor “stabiel”: {Math.round(minMinutes ?? 0)} min
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-4 py-3 bg-gray-50/70 border-b border-gray-100">
+        <div className="rounded-xl bg-white ring-1 ring-black/5 p-3">
+          <div className="text-sm font-semibold mb-1">RAPM / 90</div>
+          <p className="text-xs leading-relaxed text-gray-600">
+            Schat hoeveel een speler het doelpuntensaldo van zijn ploeg beïnvloedt per 90 minuten.
+            Het model houdt rekening met medespelers, tegenstanders en de sterkte van de tegenstander.
+            Positief is beter; negatief betekent dat het doelpuntensaldo tijdens zijn minuten relatief slechter was.
+          </p>
+        </div>
+        <div className="rounded-xl bg-white ring-1 ring-black/5 p-3">
+          <div className="text-sm font-semibold mb-1">xPts-impact / 90</div>
+          <p className="text-xs leading-relaxed text-gray-600">
+            Schat hoeveel een speler bijdraagt aan veranderingen in de verwachte punten van zijn ploeg.
+            De wedstrijdsituatie wordt bepaald door minuut, stand, thuis/uit, rode kaarten en ploegsterkte.
+            Een speler hoeft dus niet zelf te scoren om een positieve xPts-impact te hebben.
+          </p>
         </div>
       </div>
 
@@ -1870,53 +1888,43 @@ function PlayerRapmTable({ rows, minMinutes }) {
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
                 onClick={() => onSort("rapm")}
+                title="Geschatte invloed op het doelpuntensaldo per 90 minuten"
               >
                 RAPM / 90 {sortArrow("rapm")}
               </th>
               <th
-                className="px-2 py-1 text-right cursor-pointer select-none"
-                onClick={() => onSort("rapmSe")}
+                className="px-2 py-1 text-right"
+                title="95%-bootstrapinterval rond de RAPM-schatting"
               >
-                SE {sortArrow("rapmSe")}
-              </th>
-              <th
-                className="px-2 py-1 text-right cursor-pointer select-none"
-                onClick={() => onSort("rapmZ")}
-              >
-                z-score {sortArrow("rapmZ")}
+                95%-interval
               </th>
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
                 onClick={() => onSort("rapmSign")}
-                title="Aandeel bootstrap-runs met hetzelfde teken als de puntschatting"
+                title="Percentage bootstrap-runs waarin de RAPM-impact dezelfde richting houdt"
               >
-                stab. {sortArrow("rapmSign")}
+                Stabiliteit {sortArrow("rapmSign")}
               </th>
 
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
                 onClick={() => onSort("xppm")}
+                title="Geschatte invloed op verwachte wedstrijdpunten per 90 minuten"
               >
-                xPts-EPA / 90 {sortArrow("xppm")}
+                xPts-impact / 90 {sortArrow("xppm")}
               </th>
               <th
-                className="px-2 py-1 text-right cursor-pointer select-none"
-                onClick={() => onSort("xppmSe")}
+                className="px-2 py-1 text-right"
+                title="95%-bootstrapinterval rond de xPts-impact"
               >
-                SE {sortArrow("xppmSe")}
-              </th>
-              <th
-                className="px-2 py-1 text-right cursor-pointer select-none"
-                onClick={() => onSort("xppmZ")}
-              >
-                z-score {sortArrow("xppmZ")}
+                95%-interval
               </th>
               <th
                 className="px-2 py-1 text-right cursor-pointer select-none"
                 onClick={() => onSort("xppmSign")}
-                title="Aandeel bootstrap-runs met hetzelfde teken als de puntschatting"
+                title="Percentage bootstrap-runs waarin de xPts-impact dezelfde richting houdt"
               >
-                stab. {sortArrow("xppmSign")}
+                Stabiliteit {sortArrow("xppmSign")}
               </th>
             </tr>
           </thead>
@@ -1936,27 +1944,25 @@ function PlayerRapmTable({ rows, minMinutes }) {
                   {p.mins !== null ? Math.round(p.mins) : "—"}
                 </td>
 
-                <td className="px-2 py-1 text-right">
+                <td className="px-2 py-1 text-right font-medium">
                   {p.rapm !== null ? p.rapm.toFixed(2) : "—"}
                 </td>
-                <td className="px-2 py-1 text-right">
-                  {p.rapmSe !== null ? p.rapmSe.toFixed(2) : "—"}
-                </td>
-                <td className="px-2 py-1 text-right">
-                  {p.rapmZ !== null ? p.rapmZ.toFixed(2) : "—"}
+                <td className="px-2 py-1 text-right whitespace-nowrap text-xs text-gray-600">
+                  {p.rapmCiLow !== null && p.rapmCiHigh !== null
+                    ? `${p.rapmCiLow.toFixed(2)} tot ${p.rapmCiHigh.toFixed(2)}`
+                    : "—"}
                 </td>
                 <td className="px-2 py-1 text-right">
                   {p.rapmSign !== null ? `${Math.round(p.rapmSign * 100)}%` : "—"}
                 </td>
 
-                <td className="px-2 py-1 text-right">
+                <td className="px-2 py-1 text-right font-medium">
                   {p.xppm !== null ? p.xppm.toFixed(2) : "—"}
                 </td>
-                <td className="px-2 py-1 text-right">
-                  {p.xppmSe !== null ? p.xppmSe.toFixed(2) : "—"}
-                </td>
-                <td className="px-2 py-1 text-right">
-                  {p.xppmZ !== null ? p.xppmZ.toFixed(2) : "—"}
+                <td className="px-2 py-1 text-right whitespace-nowrap text-xs text-gray-600">
+                  {p.xppmCiLow !== null && p.xppmCiHigh !== null
+                    ? `${p.xppmCiLow.toFixed(2)} tot ${p.xppmCiHigh.toFixed(2)}`
+                    : "—"}
                 </td>
                 <td className="px-2 py-1 text-right">
                   {p.xppmSign !== null ? `${Math.round(p.xppmSign * 100)}%` : "—"}
@@ -1967,11 +1973,17 @@ function PlayerRapmTable({ rows, minMinutes }) {
         </table>
       </div>
 
-      <div className="px-4 pb-2 pt-2 text-[11px] text-gray-500 space-y-1">
-        <p>• RAPM = ridge-gecorrigeerde impact op doelpuntensaldo per 90 min, met pre-match ELO als control.</p>
-        <p>• xPts-EPA = verandering in verwachte punten uit minuut, score, thuis/uit, spelersaantal en pre-match ELO; de CSV-key blijft xPPM voor backwards compatibility.</p>
-        <p>• Alpha wordt via cross-validatie per wedstrijd gekozen. SE/interval komt uit een bootstrap die volledige wedstrijden resamplet.</p>
-        <p>• stab. = percentage bootstrap-runs waarin het effect hetzelfde teken houdt. Bij weinig wedstrijden blijft voorzichtig interpreteren.</p>
+      <div className="mx-4 my-3 rounded-xl bg-amber-50 ring-1 ring-amber-100 px-3 py-2 text-xs leading-relaxed text-amber-900">
+        <strong>Interpretatie:</strong> RAPM en xPts-impact zijn modelschattingen, geen individuele ratings.
+        Ze proberen de invloed van een speler te onderscheiden van ploeggenoten, tegenstanders en wedstrijdsituatie.
+        Bij weinig wedstrijden of speelminuten blijft de onzekerheid groot. Gebruik daarom altijd de speelminuten,
+        het 95%-interval en de stabiliteit samen met de puntschatting.
+      </div>
+      <div className="px-4 pb-3 text-[11px] text-gray-500 space-y-1">
+        <p>• RAPM kijkt naar wat er met het doelpuntensaldo gebeurt; xPts-impact kijkt naar wat er met de verwachte wedstrijdpunten gebeurt.</p>
+        <p>• Stabiliteit = percentage bootstrap-herberekeningen waarin de geschatte impact dezelfde richting houdt. Hoger is overtuigender.</p>
+        <p>• Het 95%-interval toont de onzekerheidsmarge. Als het interval 0 omvat, is de richting van het individuele effect nog onzeker.</p>
+        <p>• De regularisatie wordt via cross-validatie per wedstrijd gekozen; de onzekerheidsmarges komen uit een bootstrap van volledige wedstrijden.</p>
       </div>
     </div>
   );
