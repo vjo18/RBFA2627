@@ -1,0 +1,35 @@
+name: RBFA Play Store readiness test
+
+on:
+  push:
+    branches:
+      - experiment/android-emulator-smoke-test
+    paths:
+      - '.github/workflows/rbfa-playstore-test.yml'
+      - 'scripts/test_rbfa_playstore.sh'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  play-store-check:
+    name: Open official RBFA Play Store listing
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Enable KVM for emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Test Google Play availability and RBFA app launch feasibility
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis_playstore
+          arch: x86_64
+          profile: pixel_6
+          script: bash scripts/test_rbfa_playstore.sh
