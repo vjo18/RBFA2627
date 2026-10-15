@@ -1,0 +1,37 @@
+name: Android emulator smoke test
+
+on:
+  push:
+    branches:
+      - experiment/android-emulator-smoke-test
+    paths:
+      - '.github/workflows/android-emulator-smoke-test.yml'
+      - 'scripts/test_android_emulator.sh'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  emulator-boot:
+    name: Boot Android emulator (no RBFA login/data)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable KVM for emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Start emulator and verify boot
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          script: bash scripts/test_android_emulator.sh
