@@ -1,0 +1,85 @@
+name: Update RBFA wedstrijdgegevens
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rbfa-manual-data-update
+  cancel-in-progress: false
+
+jobs:
+  update-and-publish:
+    name: Scrape, bereken en publiceer
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Python instellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Node-afhankelijkheden installeren
+        run: npm ci
+
+      - name: Chromium-systeembibliotheken en virtueel scherm installeren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          npx puppeteer browsers install chrome --install-deps
+
+      - name: Python-afhankelijkheden installeren
+        run: python -m pip install pandas numpy scikit-learn
+
+      - name: RBFA-data ophalen en statistieken vernieuwen
+        run: npm run update:data
+
+      - name: Kalender valideren
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          matches = json.loads(Path("data_raw/match_calendar.json").read_text(encoding="utf-8"))
+          if not isinstance(matches, list) or len(matches) < 10:
+              raise SystemExit("Ongeldige of onvolledige kalender: update wordt niet gepubliceerd.")
+          if not all(m.get("url") and m.get("date") for m in matches):
+              raise SystemExit("Kalender bevat wedstrijden zonder URL of datum.")
+          print(f"Kalender gecontroleerd: {len(matches)} wedstrijden")
+          PY
+
+      - name: Website bouwen
+        run: npm run build
+
+      - name: Bijgewerkte databestanden opslaan op main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data_raw public/data
+          if git diff --cached --quiet; then
+            echo "Geen wijzigingen in de databestanden."
+          else
+            git commit -m "Update RBFA wedstrijdgegevens"
+            git push origin HEAD:main
+          fi
+
+      - name: Website publiceren op gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
