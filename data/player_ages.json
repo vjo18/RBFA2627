@@ -1,7 +1,7 @@
 {
   "seasonYear": 2026,
   "missingBirthyears": 0,
-  "totalPlayers": 356,
+  "totalPlayers": 0,
   "teams": {
     "Club Roeselare": {
       "averageStarterAge": 29.3,
@@ -236,7 +236,7 @@
     },
     "FC Sp. Heestert A": {
       "averageStarterAge": 26.4,
-      "averageSubstituteAge": 24.0,
+      "averageSubstituteAge": 24,
       "starterAppearances": 99,
       "starterAges": [
         27,
@@ -1360,7 +1360,7 @@
       ]
     },
     "K. RC Bissegem": {
-      "averageStarterAge": 27.0,
+      "averageStarterAge": 27,
       "averageSubstituteAge": 23.6,
       "starterAppearances": 99,
       "starterAges": [
@@ -1827,7 +1827,7 @@
       ]
     },
     "K. SV Veurne A": {
-      "averageStarterAge": 28.0,
+      "averageStarterAge": 28,
       "averageSubstituteAge": 23.7,
       "starterAppearances": 99,
       "starterAges": [
@@ -2475,7 +2475,7 @@
       ]
     },
     "K.R.C. Waregem A": {
-      "averageStarterAge": 29.0,
+      "averageStarterAge": 29,
       "averageSubstituteAge": 22.4,
       "starterAppearances": 99,
       "starterAges": [
@@ -3118,7 +3118,7 @@
       ]
     },
     "S.V. Wevelgem City A": {
-      "averageStarterAge": 28.0,
+      "averageStarterAge": 28,
       "averageSubstituteAge": 23.9,
       "starterAppearances": 99,
       "starterAges": [
