@@ -1,0 +1,45 @@
+name: Test dashboard build and preview
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/birthyear-macrodroid-flow]
+    paths:
+      - 'src/**'
+      - 'public/data/player_ages.json'
+      - 'processing/export_player_ages.py'
+      - 'vite.config.js'
+      - '.github/workflows/test-dashboard.yml'
+permissions:
+  contents: write
+concurrency:
+  group: test-dashboard-preview
+  cancel-in-progress: true
+jobs:
+  build:
+    if: github.ref == 'refs/heads/feature/birthyear-macrodroid-flow'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Build isolated preview under /RBFA2627/preview/birthyear/
+        run: npm run build -- --base=/RBFA2627/preview/birthyear/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-test-build
+          path: dist/
+      - name: Publish preview to subfolder without removing production files
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          target-folder: preview/birthyear
+          clean: true
+          clean-exclude: |
+            .nojekyll
+      - name: Preview link
+        run: |
+          echo "Preview: https://vjo18.github.io/RBFA2627/preview/birthyear/" >> "$GITHUB_STEP_SUMMARY"

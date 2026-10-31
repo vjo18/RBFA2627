@@ -584,6 +584,74 @@ const ProjectedXPtsStabilityCard = ({ team, rows, stableFromMatchday }) => (
 );
 
 
+function TeamAgeBoxplots({ ageStats, selectedTeam }) {
+  const quantile = (arr, p) => {
+    const pos = (arr.length - 1) * p;
+    const lo = Math.floor(pos), hi = Math.ceil(pos);
+    return arr[lo] + (arr[hi] - arr[lo]) * (pos - lo);
+  };
+  const rows = Object.entries(ageStats?.teams || {}).map(([team, data]) => {
+    const values = (data.starterAges || []).filter(Number.isFinite).sort((a, b) => a - b);
+    if (!values.length) return null;
+    return { team, min: values[0], q1: quantile(values, 0.25),
+      median: quantile(values, 0.5), q3: quantile(values, 0.75),
+      max: values[values.length - 1], mean: data.averageStarterAge, count: values.length };
+  }).filter(Boolean).sort((a, b) => a.mean - b.mean || a.team.localeCompare(b.team));
+  if (!rows.length) return null;
+  const min = Math.min(...rows.map(r => r.min));
+  const max = Math.max(...rows.map(r => r.max));
+  const axisMin = Math.floor(min);
+  const axisMax = Math.ceil(max);
+  const ticks = Array.from({ length: axisMax - axisMin + 1 }, (_, i) => axisMin + i);
+  const scale = v => (v - axisMin) / (axisMax - axisMin || 1) * 100;
+  return (
+    <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
+      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between gap-3">
+        <h3 className="text-lg font-semibold">Leeftijd basiself — jongst naar oudst</h3>
+        <span className="text-xs text-gray-500">Gemiddelde leeftijd (jaar)</span>
+      </div>
+      <div className="px-4 pt-3 pb-4">
+        <p className="text-[11px] text-gray-500 mb-2">Whiskers = min/max, box = Q1–Q3, blauwe streep = mediaan, stip = gemiddelde. Elke basisplaats telt mee.</p>
+        <ul className="space-y-1.5">
+          {rows.map((row, i) => (
+            <li key={row.team} title={`${row.team}: gemiddeld ${row.mean.toFixed(1)} jaar, ${row.count} basisplaatsen`}
+              className={`flex items-center gap-3 px-2 py-1 rounded-md ${row.team === selectedTeam ? "bg-amber-50" : ""}`}>
+              <div className="w-60 shrink-0 pr-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="w-5 text-right text-gray-500">{i + 1}</span>
+                  <span className="truncate">{row.team}</span>
+                </div>
+              </div>
+              <div className="flex-1 relative h-6">
+                <div className="absolute inset-y-2 left-0 right-0 bg-gray-100 rounded-full" />
+                <div className="absolute top-[11px] h-[2px] bg-gray-400" style={{ left: `${scale(row.min)}%`, right: `${100 - scale(row.max)}%` }} />
+                <div className="absolute inset-y-1" style={{ left: `${scale(row.q1)}%`, right: `${100 - scale(row.q3)}%` }}>
+                  <div className="h-full bg-blue-200 rounded-md border border-blue-300" />
+                </div>
+                <div className="absolute inset-y-[6px] w-[2px] bg-blue-700" style={{ left: `${scale(row.median)}%` }} />
+                <div className="absolute top-[8px] w-2 h-2 -ml-1 rounded-full bg-amber-500 border border-white" style={{ left: `${scale(row.mean)}%` }} />
+              </div>
+              <div className="w-16 text-xs text-right text-gray-700 tabular-nums">{row.mean.toFixed(1).replace(".", ",")} jaar</div>
+            </li>
+          ))}
+        </ul>
+        <div className="flex items-center gap-3 px-2 mt-2" aria-label="Leeftijdsas in gehele jaren">
+          <div className="w-60 shrink-0 pr-2 text-xs text-gray-500">Leeftijd (jaar)</div>
+          <div className="flex-1 relative h-7 border-t border-gray-200">
+            {ticks.map(tick => (
+              <span key={tick} className="absolute top-0 -translate-x-1/2 text-[10px] text-gray-500 tabular-nums" style={{ left: `${scale(tick)}%` }}>
+                <span className="block h-1.5 w-px bg-gray-400 mx-auto mb-0.5" />{tick}
+              </span>
+            ))}
+          </div>
+          <div className="w-16 shrink-0" />
+        </div>
+        <p className="text-[11px] text-gray-400 mt-3">Leeftijd = 2026 − geboortejaar; benadering voor seizoen 2026–2027.</p>
+      </div>
+    </div>
+  );
+}
+
 /* ------------------ NIEUW: Team RAPM boxplots ------------------ */
 const TeamRapmBoxplots = ({ dataRapm, dataXppm, selectedTeam, minMinutes }) => {
   const [metric, setMetric] = React.useState("RAPM"); // "RAPM" of "xPPM"
@@ -2294,6 +2362,29 @@ function PlayersScatter({ data, metricLabel }) {
 }
 
 
+function AgeMinutesScatter({ data }) {
+  if (!data?.length) return <div className="rounded-2xl bg-white p-4 text-sm text-gray-500">Geen leeftijdsgegevens beschikbaar.</div>;
+  return (
+    <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-4">
+      <div className="h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <ScatterChart margin={{ top: 12, right: 20, bottom: 24, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" dataKey="age" name="Leeftijd" unit=" jaar" domain={['dataMin - 1', 'dataMax + 1']} label={{ value: "Leeftijd (jaar)", position: "insideBottom", offset: -14 }} />
+            <YAxis type="number" dataKey="minutes" name="Speelminuten" allowDecimals={false} label={{ value: "Speelminuten", angle: -90, position: "insideLeft" }} />
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} content={({ active, payload }) => {
+              if (!active || !payload?.length) return null;
+              const p = payload[0].payload;
+              return <div className="bg-white rounded-lg shadow-md border p-3 text-sm"><strong>{p.name}</strong><div>Leeftijd: {p.age} jaar</div><div>Speelminuten: {p.minutes}</div></div>;
+            }} />
+            <Scatter name="Spelers" data={data} fill="#0f766e" />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+
 function EloChart({ data, showOpp }) {
   if (!data?.length) {
     return (
@@ -2393,6 +2484,7 @@ export default function App() {
   const [supersubsTop10, setSupersubsTop10] = useState([]);
   const [matchFlow, setMatchFlow] = useState(null);
   const [lineupHeatmap, setLineupHeatmap] = useState(null);
+  const [ageStats, setAgeStats] = useState(null);
 
 
 
@@ -2439,8 +2531,16 @@ export default function App() {
     return () => { alive = false; };
   }, []);
 
+  useEffect(() => {
+    let active = true;
+    fetch("data/player_ages.json")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (active) setAgeStats(data); })
+      .catch(() => { if (active) setAgeStats(null); });
+    return () => { active = false; };
+  }, []);
 
-
+  const teamAge = ageStats?.teams?.[team] || null;
 
   const teams = useMemo(() => {
     // Dynamisch: haal unieke teamnamen uit teamStats (geen hardgecodeerde lijst)
@@ -3204,6 +3304,10 @@ const teamXppmBoxData = useMemo(() => {
   </div>
 </section>
 
+<section className="mb-8">
+  <TeamAgeBoxplots ageStats={ageStats} selectedTeam={team} />
+</section>
+
 {/* League-level timing scatter */}
 <section className="mb-8">
   <LeagueTimingScatter
@@ -3307,7 +3411,29 @@ const teamXppmBoxData = useMemo(() => {
           />
         </section>
 
+        <section className="mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <p className="text-sm text-gray-500">Gem. leeftijd basiself</p>
+              <p className="text-3xl font-semibold mt-2">{teamAge?.averageStarterAge != null ? `${teamAge.averageStarterAge.toFixed(1).replace(".", ",")} jaar` : "—"}</p>
+              <p className="text-xs text-gray-400 mt-2">{teamAge?.starterAppearances ?? 0} basisplaatsen</p>
+            </div>
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <p className="text-sm text-gray-500">Gem. leeftijd invallers</p>
+              <p className="text-3xl font-semibold mt-2">{teamAge?.averageSubstituteAge != null ? `${teamAge.averageSubstituteAge.toFixed(1).replace(".", ",")} jaar` : "—"}</p>
+              <p className="text-xs text-gray-400 mt-2">{teamAge?.substituteAppearances ?? 0} invalbeurten</p>
+            </div>
+          </div>
+          <p className="text-xs text-gray-400 mt-2">Leeftijd bij seizoensstart, benaderd als 2026 − geboortejaar. Gemiddelden gewogen per basisplaats of invalbeurt.</p>
+        </section>
+
         <StartingXIHeatmap data={lineupHeatmap} team={team} />
+
+        <section className="mb-10">
+          <h3 className="text-lg font-semibold mb-3">Leeftijd versus speelminuten</h3>
+          <AgeMinutesScatter data={(teamAge?.players || []).filter(p => p.minutes > 0 && Number.isFinite(p.age) && (showPlayers || showKeepers))} />
+          <p className="text-xs text-gray-400 mt-2">Elke stip is een speler. Leeftijd in jaren bij seizoensstart (benadering).</p>
+        </section>
 
         {/* Filters voor beide spelerstabellen */}
         <section className="mb-3">
