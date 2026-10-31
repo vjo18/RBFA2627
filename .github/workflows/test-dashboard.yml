@@ -1,0 +1,26 @@
+name: Test dashboard build
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'public/data/player_ages.json'
+      - 'processing/export_player_ages.py'
+      - '.github/workflows/test-dashboard.yml'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-test-build
+          path: dist/
