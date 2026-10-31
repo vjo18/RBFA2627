@@ -50,6 +50,7 @@ def main():
             "averageStarterAge": round(sum(starters) / len(starters), 1) if starters else None,
             "averageSubstituteAge": round(sum(subs) / len(subs), 1) if subs else None,
             "starterAppearances": len(starters),
+            "starterAges": starters,
             "substituteAppearances": len(subs),
             "players": sorted(group["players"].values(), key=lambda p: p["name"]),
         }
