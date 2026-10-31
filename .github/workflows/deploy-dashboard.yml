@@ -1,0 +1,40 @@
+name: Publish main dashboard
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'vite.config.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-dashboard.yml'
+permissions:
+  contents: write
+concurrency:
+  group: dashboard-production-publish
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Build production dashboard
+        run: npm run build
+      - name: Publish root while preserving preview
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: false
+          single-commit: false
+      - name: Dashboard link
+        run: |
+          echo "Dashboard: https://vjo18.github.io/RBFA2627/" >> "$GITHUB_STEP_SUMMARY"
