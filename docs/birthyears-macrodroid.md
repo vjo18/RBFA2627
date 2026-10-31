@@ -33,7 +33,7 @@ Ploeg;Naam;Geboortejaar;Gevonden
 K.V.C. Ardooie;Brent Callewaert;2001;true
 ```
 
-Upload dit bestand op GitHub met de exacte naam **`data_raw/birthyear_import.csv`** (via **Add file → Upload files** en commit). De GitHub Action start automatisch, importeert geldige resultaten in `player_birthyears.csv` en vernieuwt de ontbrekende export.
+Upload het CSV-bestand **zonder hernoemen** naar de map **`data_raw/macrodroid_uploads/`** op GitHub (open de map → **Add file → Upload files** → **Commit changes**). De oorspronkelijke bestandsnaam mag behouden blijven, bijvoorbeeld `resultaten_2026-11-01.csv`. De GitHub Action start automatisch, importeert alle CSV-bestanden in die map in `player_birthyears.csv` en vernieuwt de ontbrekende export. Bestaande bestanden blijven staan; herhaald verwerken voegt geen duplicaten toe. Gebruik voor een nieuwe upload bij voorkeur een nieuwe bestandsnaam, zodat je eerdere resultaten kunt terugvinden.
 
 Ook lokaal mogelijk:
 
