@@ -600,7 +600,10 @@ function TeamAgeBoxplots({ ageStats, selectedTeam }) {
   if (!rows.length) return null;
   const min = Math.min(...rows.map(r => r.min));
   const max = Math.max(...rows.map(r => r.max));
-  const scale = v => (v - min) / (max - min || 1) * 100;
+  const axisMin = Math.floor(min);
+  const axisMax = Math.ceil(max);
+  const ticks = Array.from({ length: axisMax - axisMin + 1 }, (_, i) => axisMin + i);
+  const scale = v => (v - axisMin) / (axisMax - axisMin || 1) * 100;
   return (
     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between gap-3">
@@ -632,6 +635,17 @@ function TeamAgeBoxplots({ ageStats, selectedTeam }) {
             </li>
           ))}
         </ul>
+        <div className="flex items-center gap-3 px-2 mt-2" aria-label="Leeftijdsas in gehele jaren">
+          <div className="w-60 shrink-0 pr-2 text-xs text-gray-500">Leeftijd (jaar)</div>
+          <div className="flex-1 relative h-7 border-t border-gray-200">
+            {ticks.map(tick => (
+              <span key={tick} className="absolute top-0 -translate-x-1/2 text-[10px] text-gray-500 tabular-nums" style={{ left: `${scale(tick)}%` }}>
+                <span className="block h-1.5 w-px bg-gray-400 mx-auto mb-0.5" />{tick}
+              </span>
+            ))}
+          </div>
+          <div className="w-16 shrink-0" />
+        </div>
         <p className="text-[11px] text-gray-400 mt-3">Leeftijd = 2026 − geboortejaar; benadering voor seizoen 2026–2027.</p>
       </div>
     </div>
