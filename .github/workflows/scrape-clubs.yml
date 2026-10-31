@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/scrape-clubs.yml'
+      - 'scrapers/scrape_club_names.js'
 permissions:
   contents: write
 concurrency:
