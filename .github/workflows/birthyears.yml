@@ -8,6 +8,7 @@ on:
       - 'data_raw/team_club_mapping.csv'
       - 'data_raw/player_matchdata.csv'
       - 'processing/birthyears.py'
+      - 'processing/export_player_ages.py'
 permissions:
   contents: write
 jobs:
@@ -22,11 +23,13 @@ jobs:
           python-version: '3.12'
       - name: Importeren en export vernieuwen
         run: python processing/birthyears.py refresh
+      - name: Leeftijdsstatistieken voor dashboard
+        run: python processing/export_player_ages.py
       - name: Bewaar geboortejaren en export
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for file in data_raw/player_birthyears.csv data_raw/macrodroid_missing_birthyears.csv; do
+          for file in data_raw/player_birthyears.csv data_raw/macrodroid_missing_birthyears.csv public/data/player_ages.json; do
             if [ -f "$file" ]; then
               git add "$file"
             else
