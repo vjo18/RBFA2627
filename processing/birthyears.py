@@ -14,6 +14,7 @@ MAPPING = RAW / "team_club_mapping.csv"
 DATABASE = RAW / "player_birthyears.csv"
 EXPORT = RAW / "macrodroid_missing_birthyears.csv"
 INBOX = RAW / "birthyear_import.csv"
+UPLOADS = RAW / "macrodroid_uploads"
 
 def read_csv(path, delimiter=","):
     if not path.exists() or path.stat().st_size == 0:
@@ -125,10 +126,17 @@ def main():
     parser.add_argument("action", choices=["export", "import", "refresh"])
     parser.add_argument("--file", type=pathlib.Path, default=INBOX)
     args = parser.parse_args()
-    if args.action in ("import", "refresh") and args.file.exists():
-        import_results(args.file)
-    elif args.action == "import":
-        raise SystemExit("Importbestand ontbreekt")
+    if args.action in ("import", "refresh"):
+        # Import every uploaded CSV; filenames are unrestricted.
+        # Sorted order makes repeated workflow runs deterministic.
+        files = sorted(UPLOADS.glob("*.csv")) if UPLOADS.exists() else []
+        if args.file.exists() and args.file not in files:
+            files.append(args.file)
+        if args.action == "import" and not files:
+            raise SystemExit("Geen importbestanden gevonden")
+        for file in files:
+            print(f"Importeer: {file}")
+            import_results(file)
     incomplete = export_missing() if args.action in ("export", "refresh") else False
     if incomplete:
         print("WAARSCHUWING: vul eerst ontbrekende ClubRBFA-namen aan.", file=sys.stderr)
