@@ -81,7 +81,10 @@ def export_missing():
 def import_results(path):
     if not path.exists():
         raise SystemExit(f"Importbestand ontbreekt: {path}")
-    rows = read_csv(path, ";")
+    with path.open(encoding="utf-8-sig", newline="") as source:
+        header = source.readline()
+    delimiter = ";" if header.count(";") >= header.count(",") else ","
+    rows = read_csv(path, delimiter)
     if not rows:
         print("Geen resultaten om te importeren.")
         return
@@ -93,7 +96,7 @@ def import_results(path):
     allowed = {key(mapping[norm(r.get("Team"))], r.get("Player Name")) for r in read_csv(PLAYERS) if norm(r.get("Team")) in mapping and r.get("Player Name")}
     added = skipped = conflicts = 0
     for r in rows:
-        if norm(r.get("Gevonden")) in {"false", "nee", "no", "0", "niet gevonden"}:
+        if norm(r.get("Gevonden")) in {"false", "onwaar", "nee", "no", "0", "niet gevonden"}:
             skipped += 1
             continue
         year = (r.get("Geboortejaar") or "").strip()
