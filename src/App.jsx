@@ -585,6 +585,7 @@ const ProjectedXPtsStabilityCard = ({ team, rows, stableFromMatchday }) => (
 
 
 function TeamAgeBoxplots({ ageStats, selectedTeam }) {
+  const [sortBy, setSortBy] = React.useState("mean");
   const quantile = (arr, p) => {
     const pos = (arr.length - 1) * p;
     const lo = Math.floor(pos), hi = Math.ceil(pos);
@@ -596,7 +597,7 @@ function TeamAgeBoxplots({ ageStats, selectedTeam }) {
     return { team, min: values[0], q1: quantile(values, 0.25),
       median: quantile(values, 0.5), q3: quantile(values, 0.75),
       max: values[values.length - 1], mean: data.averageStarterAge, count: values.length };
-  }).filter(Boolean).sort((a, b) => a.mean - b.mean || a.team.localeCompare(b.team));
+  }).filter(Boolean).sort((a, b) => (sortBy === "mean" ? a.mean - b.mean : a.median - b.median) || a.team.localeCompare(b.team));
   if (!rows.length) return null;
   const min = Math.min(...rows.map(r => r.min));
   const max = Math.max(...rows.map(r => r.max));
@@ -608,13 +609,20 @@ function TeamAgeBoxplots({ ageStats, selectedTeam }) {
     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between gap-3">
         <h3 className="text-lg font-semibold">Leeftijd basiself — jongst naar oudst</h3>
-        <span className="text-xs text-gray-500">Gemiddelde leeftijd (jaar)</span>
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-gray-500">Rangschik op</span>
+          <div className="inline-flex rounded-full bg-gray-100 p-1" role="group" aria-label="Sorteer leeftijdsranglijst">
+            {[["mean", "Gemiddelde"], ["median", "Mediaan"]].map(([key, label]) => (
+              <button key={key} type="button" aria-pressed={sortBy === key} onClick={() => setSortBy(key)} className={`rounded-full px-3 py-1 ${sortBy === key ? "bg-white shadow text-gray-900 font-medium" : "text-gray-500"}`}>{label}</button>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="px-4 pt-3 pb-4">
-        <p className="text-[11px] text-gray-500 mb-2">Whiskers = min/max, box = Q1–Q3, blauwe streep = mediaan, stip = gemiddelde. Elke basisplaats telt mee.</p>
+        <p className="text-[11px] text-gray-500 mb-2">Rechts staat de gekozen rangschikkingswaarde. Whiskers = min/max, box = Q1–Q3, blauwe streep = mediaan, stip = gemiddelde. Elke basisplaats telt mee.</p>
         <ul className="space-y-1.5">
           {rows.map((row, i) => (
-            <li key={row.team} title={`${row.team}: gemiddeld ${row.mean.toFixed(1)} jaar, ${row.count} basisplaatsen`}
+            <li key={row.team} title={`${row.team}: gemiddeld ${row.mean.toFixed(1)} jaar, mediaan ${row.median.toFixed(1)} jaar, ${row.count} basisplaatsen`}
               className={`flex items-center gap-3 px-2 py-1 rounded-md ${row.team === selectedTeam ? "bg-amber-50" : ""}`}>
               <div className="w-60 shrink-0 pr-2">
                 <div className="flex items-center gap-2 text-sm">
@@ -631,7 +639,7 @@ function TeamAgeBoxplots({ ageStats, selectedTeam }) {
                 <div className="absolute inset-y-[6px] w-[2px] bg-blue-700" style={{ left: `${scale(row.median)}%` }} />
                 <div className="absolute top-[8px] w-2 h-2 -ml-1 rounded-full bg-amber-500 border border-white" style={{ left: `${scale(row.mean)}%` }} />
               </div>
-              <div className="w-16 text-xs text-right text-gray-700 tabular-nums">{row.mean.toFixed(1).replace(".", ",")} jaar</div>
+              <div className="w-16 text-xs text-right text-gray-700 tabular-nums">{(sortBy === "mean" ? row.mean : row.median).toFixed(1).replace(".", ",")} jaar</div>
             </li>
           ))}
         </ul>
@@ -3305,6 +3313,11 @@ const teamXppmBoxData = useMemo(() => {
 </section>
 
 <section className="mb-8">
+  <div className="mb-3 rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-black/5 text-sm">
+    <span className="font-semibold">Ontbrekende geboortejaren: </span>
+    {ageStats?.missingBirthyears != null ? `${ageStats.missingBirthyears} van ${ageStats.totalPlayers} spelers` : "wordt bijgewerkt"}
+    <span className="text-gray-500 ml-2">({ageStats?.teams?.[team]?.missingBirthyears ?? "—"} bij geselecteerde ploeg)</span>
+  </div>
   <TeamAgeBoxplots ageStats={ageStats} selectedTeam={team} />
 </section>
 
