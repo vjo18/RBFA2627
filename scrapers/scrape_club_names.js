@@ -82,7 +82,6 @@ try {
         if (matches.length === 1) entry.club = matches[0];
         else console.warn("Alternatieve titels:", entry.team, fallback);
       }
-      else console.warn("Controleer clubtitel:", entry.team, headings);
       if (info.number) entry.number = info.number;
       console.log(entry.team, "=>", entry.club || "(naam controleren)", entry.id);
     } catch (error) { console.warn("Club overgeslagen:", entry.team, error.message); }
