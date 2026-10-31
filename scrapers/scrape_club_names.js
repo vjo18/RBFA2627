@@ -66,6 +66,22 @@ try {
       // Only accept an unambiguous heading; otherwise leave it for manual review.
       if (info.nearby) entry.club = info.nearby;
       else if (headings.length === 1) entry.club = headings[0];
+      else {
+        // Some RBFA club pages show the club title in an h1 or outside
+        // the stamnummer container. Prefer a heading matching the team name.
+        const fallback = await page.evaluate(() =>
+          [...document.querySelectorAll("h1,h2,h3")]
+            .map(e => e.textContent.trim())
+            .filter(Boolean)
+        );
+        const expected = entry.team.toUpperCase().replace(/[^A-Z0-9]/g, "").replace(/^K/, "");
+        const matches = fallback.filter(x => {
+          const normalized = x.toUpperCase().replace(/[^A-Z0-9]/g, "").replace(/^K/, "");
+          return normalized.includes(expected.replace(/A$/, "")) || expected.includes(normalized);
+        });
+        if (matches.length === 1) entry.club = matches[0];
+        else console.warn("Alternatieve titels:", entry.team, fallback);
+      }
       else console.warn("Controleer clubtitel:", entry.team, headings);
       if (info.number) entry.number = info.number;
       console.log(entry.team, "=>", entry.club || "(naam controleren)", entry.id);
