@@ -49,6 +49,9 @@ jobs:
       - name: RBFA-data ophalen en statistieken vernieuwen
         run: npm run update:data
 
+      - name: Leeftijdsstatistieken opnieuw berekenen
+        run: python processing/export_player_ages.py
+
       - name: Kalender valideren
         run: |
           python - <<'PY'
@@ -77,9 +80,9 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Website publiceren op gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Website publiceren op gh-pages zonder preview te verwijderen
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
+          branch: gh-pages
+          folder: dist
+          clean: false
