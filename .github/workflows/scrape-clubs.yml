@@ -1,0 +1,42 @@
+name: RBFA clubnamen ophalen
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/scrape-clubs.yml'
+permissions:
+  contents: write
+concurrency:
+  group: rbfa-clubs-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  clubs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Browser dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          npm ci
+      - name: RBFA clubnamen verzamelen
+        run: npm run scrape:clubs
+      - name: MacroDroid-export vernieuwen
+        run: python processing/birthyears.py export
+      - name: Clubkoppelingen en export bewaren
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data_raw/team_club_mapping.csv data_raw/macrodroid_missing_birthyears.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update RBFA club names and missing birthyear export"
+            git push
+          fi
