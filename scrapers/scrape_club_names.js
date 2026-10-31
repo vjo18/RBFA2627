@@ -44,12 +44,19 @@ try {
     if (!entry.id || (entry.club && entry.number)) continue;
     try {
       await page.goto(`https://www.rbfa.be/nl/club/${entry.id}/info`, { waitUntil: "domcontentloaded" });
-      await wait(1500);
+      await page.waitForFunction(
+        () => /Stamnummer\\s*\\d+/i.test(document.body?.innerText || ""),
+        { timeout: 18000 }
+      ).catch(() => console.warn("Stamnummer niet geladen:", entry.team));
       const info = await page.evaluate(() => {
         const text = document.body.innerText;
         const number = text.match(/Stamnummer\s*(\d+)/i)?.[1] || "";
-        const candidates = [...document.querySelectorAll("h1,h2")].map(e => e.textContent.trim()).filter(Boolean);
-        return { number, candidates };
+        const candidates = [...document.querySelectorAll("h2")].map(e => e.textContent.trim()).filter(Boolean);
+        const subtitle = [...document.querySelectorAll("*")].find(e => e.children.length === 0 && /Stamnummer\\s*\\d+/i.test(e.textContent || ""));
+        const nearby = subtitle?.parentElement?.querySelector("h2")?.textContent?.trim()
+          || subtitle?.parentElement?.parentElement?.querySelector("h2")?.textContent?.trim()
+          || "";
+        return { number, candidates, nearby };
       });
       // Club headings may change: only accept when exactly one plausible heading exists.
       const headings = info.candidates.filter(x =>
@@ -57,7 +64,8 @@ try {
       );
       // The RBFA club info page shows the club name in its main h2.
       // Only accept an unambiguous heading; otherwise leave it for manual review.
-      if (headings.length === 1) entry.club = headings[0];
+      if (info.nearby) entry.club = info.nearby;
+      else if (headings.length === 1) entry.club = headings[0];
       else console.warn("Controleer clubtitel:", entry.team, headings);
       if (info.number) entry.number = info.number;
       console.log(entry.team, "=>", entry.club || "(naam controleren)", entry.id);
