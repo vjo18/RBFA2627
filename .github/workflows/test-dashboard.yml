@@ -41,4 +41,5 @@ jobs:
           clean-exclude: |
             .nojekyll
       - name: Preview link
-        run: echo "Preview (if GitHub Pages serves gh-pages): https://vjo18.github.io/RBFA2627/preview/birthyear/" >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          echo "Preview: https://vjo18.github.io/RBFA2627/preview/birthyear/" >> "$GITHUB_STEP_SUMMARY"
