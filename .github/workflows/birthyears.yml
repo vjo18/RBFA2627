@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'data_raw/birthyear_import.csv'
+      - 'data_raw/macrodroid_uploads/**'
       - 'data_raw/team_club_mapping.csv'
       - 'data_raw/player_matchdata.csv'
       - 'processing/birthyears.py'
