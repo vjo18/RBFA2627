@@ -26,7 +26,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data_raw/player_birthyears.csv data_raw/macrodroid_missing_birthyears.csv
+          for file in data_raw/player_birthyears.csv data_raw/macrodroid_missing_birthyears.csv; do
+            if [ -f "$file" ]; then
+              git add "$file"
+            else
+              echo "Bestand nog niet aangemaakt, overslaan: $file"
+            fi
+          done
           if ! git diff --cached --quiet; then
             git commit -m "Update birth years and MacroDroid export"
             git push
