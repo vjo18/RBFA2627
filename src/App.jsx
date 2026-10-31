@@ -2294,6 +2294,29 @@ function PlayersScatter({ data, metricLabel }) {
 }
 
 
+function AgeMinutesScatter({ data }) {
+  if (!data?.length) return <div className="rounded-2xl bg-white p-4 text-sm text-gray-500">Geen leeftijdsgegevens beschikbaar.</div>;
+  return (
+    <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-4">
+      <div className="h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <ScatterChart margin={{ top: 12, right: 20, bottom: 24, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" dataKey="age" name="Leeftijd" unit=" jaar" domain={['dataMin - 1', 'dataMax + 1']} label={{ value: "Leeftijd (jaar)", position: "insideBottom", offset: -14 }} />
+            <YAxis type="number" dataKey="minutes" name="Speelminuten" allowDecimals={false} label={{ value: "Speelminuten", angle: -90, position: "insideLeft" }} />
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} content={({ active, payload }) => {
+              if (!active || !payload?.length) return null;
+              const p = payload[0].payload;
+              return <div className="bg-white rounded-lg shadow-md border p-3 text-sm"><strong>{p.name}</strong><div>Leeftijd: {p.age} jaar</div><div>Speelminuten: {p.minutes}</div></div>;
+            }} />
+            <Scatter name="Spelers" data={data} fill="#0f766e" />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+
 function EloChart({ data, showOpp }) {
   if (!data?.length) {
     return (
@@ -2393,6 +2416,7 @@ export default function App() {
   const [supersubsTop10, setSupersubsTop10] = useState([]);
   const [matchFlow, setMatchFlow] = useState(null);
   const [lineupHeatmap, setLineupHeatmap] = useState(null);
+  const [ageStats, setAgeStats] = useState(null);
 
 
 
@@ -2439,8 +2463,16 @@ export default function App() {
     return () => { alive = false; };
   }, []);
 
+  useEffect(() => {
+    let active = true;
+    fetch("data/player_ages.json")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (active) setAgeStats(data); })
+      .catch(() => { if (active) setAgeStats(null); });
+    return () => { active = false; };
+  }, []);
 
-
+  const teamAge = ageStats?.teams?.[team] || null;
 
   const teams = useMemo(() => {
     // Dynamisch: haal unieke teamnamen uit teamStats (geen hardgecodeerde lijst)
@@ -3307,7 +3339,29 @@ const teamXppmBoxData = useMemo(() => {
           />
         </section>
 
+        <section className="mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <p className="text-sm text-gray-500">Gem. leeftijd basiself</p>
+              <p className="text-3xl font-semibold mt-2">{teamAge?.averageStarterAge != null ? `${teamAge.averageStarterAge.toFixed(1).replace(".", ",")} jaar` : "—"}</p>
+              <p className="text-xs text-gray-400 mt-2">{teamAge?.starterAppearances ?? 0} basisplaatsen</p>
+            </div>
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <p className="text-sm text-gray-500">Gem. leeftijd invallers</p>
+              <p className="text-3xl font-semibold mt-2">{teamAge?.averageSubstituteAge != null ? `${teamAge.averageSubstituteAge.toFixed(1).replace(".", ",")} jaar` : "—"}</p>
+              <p className="text-xs text-gray-400 mt-2">{teamAge?.substituteAppearances ?? 0} invalbeurten</p>
+            </div>
+          </div>
+          <p className="text-xs text-gray-400 mt-2">Leeftijd bij seizoensstart, benaderd als 2026 − geboortejaar. Gemiddelden gewogen per basisplaats of invalbeurt.</p>
+        </section>
+
         <StartingXIHeatmap data={lineupHeatmap} team={team} />
+
+        <section className="mb-10">
+          <h3 className="text-lg font-semibold mb-3">Leeftijd versus speelminuten</h3>
+          <AgeMinutesScatter data={(teamAge?.players || []).filter(p => p.minutes > 0 && Number.isFinite(p.age) && (showPlayers || showKeepers))} />
+          <p className="text-xs text-gray-400 mt-2">Elke stip is een speler. Leeftijd in jaren bij seizoensstart (benadering).</p>
+        </section>
 
         {/* Filters voor beide spelerstabellen */}
         <section className="mb-3">
