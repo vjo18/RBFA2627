@@ -52,8 +52,13 @@ try {
         return { number, candidates };
       });
       // Club headings may change: only accept when exactly one plausible heading exists.
-      const headings = info.candidates.filter(x => !/^(info|club|ploegen|kalender|uitslagen)$/i.test(x));
+      const headings = info.candidates.filter(x =>
+        x.length > 4 && !/^(info|club|ploegen|kalender|uitslagen|contact|adres|algemeen)$/i.test(x)
+      );
+      // The RBFA club info page shows the club name in its main h2.
+      // Only accept an unambiguous heading; otherwise leave it for manual review.
       if (headings.length === 1) entry.club = headings[0];
+      else console.warn("Controleer clubtitel:", entry.team, headings);
       if (info.number) entry.number = info.number;
       console.log(entry.team, "=>", entry.club || "(naam controleren)", entry.id);
     } catch (error) { console.warn("Club overgeslagen:", entry.team, error.message); }
