@@ -4,9 +4,9 @@
   "totalPlayers": 356,
   "teams": {
     "Club Roeselare": {
-      "averageStarterAge": 29.3,
-      "averageSubstituteAge": 23.7,
-      "starterAppearances": 99,
+      "averageStarterAge": 29.4,
+      "averageSubstituteAge": 23.3,
+      "starterAppearances": 110,
       "starterAges": [
         24,
         30,
@@ -106,31 +106,42 @@
         31,
         42,
         31,
-        31
+        31,
+        29,
+        25,
+        30,
+        36,
+        28,
+        30,
+        31,
+        42,
+        31,
+        31,
+        19
       ],
       "missingBirthyears": 0,
       "totalPlayers": 24,
-      "substituteAppearances": 34,
+      "substituteAppearances": 38,
       "players": [
         {
           "name": "Arne Hélin",
           "age": 30,
-          "minutes": 798
+          "minutes": 888
         },
         {
           "name": "Bram Helin",
           "age": 28,
-          "minutes": 709
+          "minutes": 799
         },
         {
           "name": "Brent Mandeville",
           "age": 20,
-          "minutes": 58
+          "minutes": 66
         },
         {
           "name": "Cedric Makekula Mitu Muendele",
           "age": 31,
-          "minutes": 765
+          "minutes": 835
         },
         {
           "name": "Gauthier Vandesteene",
@@ -140,17 +151,17 @@
         {
           "name": "Gianni Vandecasteele",
           "age": 31,
-          "minutes": 552
+          "minutes": 642
         },
         {
           "name": "Gilles Decuyper",
           "age": 19,
-          "minutes": 306
+          "minutes": 350
         },
         {
           "name": "Jean-Baptiste Johan Devolder",
           "age": 25,
-          "minutes": 316
+          "minutes": 406
         },
         {
           "name": "Jean-Yves Roger Devolder",
@@ -165,27 +176,27 @@
         {
           "name": "Jordin Nico Decorte",
           "age": 29,
-          "minutes": 180
+          "minutes": 270
         },
         {
           "name": "Lauden Hugelier",
           "age": 36,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Mauro Dumoulin",
           "age": 19,
-          "minutes": 188
+          "minutes": 196
         },
         {
           "name": "Michiel Verlinde",
           "age": 31,
-          "minutes": 748
+          "minutes": 794
         },
         {
           "name": "Mohamedamin El Issati",
           "age": 19,
-          "minutes": 221
+          "minutes": 303
         },
         {
           "name": "Remi De Vlieghe",
@@ -220,24 +231,24 @@
         {
           "name": "Tristan Prinsier",
           "age": 21,
-          "minutes": 47
+          "minutes": 67
         },
         {
           "name": "Vincent Provoost",
           "age": 42,
-          "minutes": 710
+          "minutes": 792
         },
         {
           "name": "Yoran Deleu",
           "age": 30,
-          "minutes": 489
+          "minutes": 579
         }
       ]
     },
     "FC Sp. Heestert A": {
-      "averageStarterAge": 26.4,
-      "averageSubstituteAge": 24,
-      "starterAppearances": 99,
+      "averageStarterAge": 26.2,
+      "averageSubstituteAge": 23.6,
+      "starterAppearances": 110,
       "starterAges": [
         27,
         22,
@@ -337,21 +348,32 @@
         23,
         25,
         22,
+        21,
+        20,
+        20,
+        22,
+        21,
+        25,
+        31,
+        23,
+        25,
+        22,
+        36,
         21
       ],
       "missingBirthyears": 0,
       "totalPlayers": 28,
-      "substituteAppearances": 24,
+      "substituteAppearances": 27,
       "players": [
         {
           "name": "Aaron Balcaen",
           "age": 25,
-          "minutes": 810
+          "minutes": 888
         },
         {
           "name": "Adrien Michel Hermant",
           "age": 25,
-          "minutes": 624
+          "minutes": 714
         },
         {
           "name": "Aristote Madiani",
@@ -366,17 +388,17 @@
         {
           "name": "Arthur Hugelier",
           "age": 18,
-          "minutes": 34
+          "minutes": 46
         },
         {
           "name": "Ayman Benmessaoud Ahomir",
           "age": 21,
-          "minutes": 172
+          "minutes": 250
         },
         {
           "name": "Dries Loosveldt",
           "age": 26,
-          "minutes": 389
+          "minutes": 401
         },
         {
           "name": "Dré Acx",
@@ -386,7 +408,7 @@
         {
           "name": "Dylan David Bourquin",
           "age": 31,
-          "minutes": 780
+          "minutes": 870
         },
         {
           "name": "Emile Vandererven",
@@ -426,27 +448,27 @@
         {
           "name": "Joppe Yserbyt",
           "age": 20,
-          "minutes": 213
+          "minutes": 303
         },
         {
           "name": "Lenny Rassalle",
           "age": 21,
-          "minutes": 394
+          "minutes": 484
         },
         {
           "name": "Louis Callewier",
           "age": 19,
-          "minutes": 213
+          "minutes": 243
         },
         {
           "name": "Mattice Bekaert",
           "age": 23,
-          "minutes": 807
+          "minutes": 897
         },
         {
           "name": "Mauro Mercher",
           "age": 22,
-          "minutes": 615
+          "minutes": 705
         },
         {
           "name": "Nicolas Gheeraert",
@@ -456,12 +478,12 @@
         {
           "name": "Niels Stael",
           "age": 22,
-          "minutes": 149
+          "minutes": 239
         },
         {
           "name": "Pieter Vangheluwe",
           "age": 36,
-          "minutes": 107
+          "minutes": 167
         },
         {
           "name": "Sander Dejonghe",
@@ -481,14 +503,14 @@
         {
           "name": "Yentel Decruyenaere",
           "age": 20,
-          "minutes": 244
+          "minutes": 334
         }
       ]
     },
     "K. Eendr. Wervik A": {
-      "averageStarterAge": 24.4,
-      "averageSubstituteAge": 25.8,
-      "starterAppearances": 99,
+      "averageStarterAge": 24.5,
+      "averageSubstituteAge": 25.6,
+      "starterAppearances": 110,
       "starterAges": [
         34,
         25,
@@ -588,11 +610,22 @@
         18,
         24,
         24,
-        20
+        20,
+        34,
+        25,
+        21,
+        22,
+        30,
+        20,
+        27,
+        24,
+        18,
+        24,
+        30
       ],
       "missingBirthyears": 0,
       "totalPlayers": 22,
-      "substituteAppearances": 31,
+      "substituteAppearances": 34,
       "players": [
         {
           "name": "Abdoul Salam Sow",
@@ -602,22 +635,22 @@
         {
           "name": "Adil Haci",
           "age": 27,
-          "minutes": 244
+          "minutes": 334
         },
         {
           "name": "Arthur Crombez",
           "age": 18,
-          "minutes": 778
+          "minutes": 868
         },
         {
           "name": "Bilal Al Ghami",
           "age": 20,
-          "minutes": 454
+          "minutes": 498
         },
         {
           "name": "Bilal El Houcine Belghaouar",
           "age": 30,
-          "minutes": 404
+          "minutes": 476
         },
         {
           "name": "Billal Debiche",
@@ -632,32 +665,32 @@
         {
           "name": "Dylan Olievier",
           "age": 34,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Emiel Stevens",
           "age": 20,
-          "minutes": 798
+          "minutes": 888
         },
         {
           "name": "Geoffrey Coppin",
           "age": 24,
-          "minutes": 743
+          "minutes": 833
         },
         {
           "name": "Jonathan Harrang",
           "age": 20,
-          "minutes": 372
+          "minutes": 390
         },
         {
           "name": "Joseph Sylla",
           "age": 30,
-          "minutes": 148
+          "minutes": 220
         },
         {
           "name": "Kamal Diaz Jlal",
           "age": 24,
-          "minutes": 126
+          "minutes": 172
         },
         {
           "name": "Maxim Driessens",
@@ -667,12 +700,12 @@
         {
           "name": "Neil Serbouh",
           "age": 22,
-          "minutes": 767
+          "minutes": 857
         },
         {
           "name": "Olivann Bossom",
           "age": 21,
-          "minutes": 690
+          "minutes": 780
         },
         {
           "name": "Quentin Christophe Despringre",
@@ -697,19 +730,19 @@
         {
           "name": "Younes Haci",
           "age": 25,
-          "minutes": 618
+          "minutes": 708
         },
         {
           "name": "Youssef Bouyfoulkitne",
           "age": 32,
-          "minutes": 558
+          "minutes": 576
         }
       ]
     },
     "K. FC Heist A": {
-      "averageStarterAge": 26.1,
-      "averageSubstituteAge": 22.4,
-      "starterAppearances": 99,
+      "averageStarterAge": 26.0,
+      "averageSubstituteAge": 22.9,
+      "starterAppearances": 110,
       "starterAges": [
         26,
         20,
@@ -809,16 +842,27 @@
         34,
         32,
         27,
+        25,
+        26,
+        20,
+        20,
+        23,
+        21,
+        24,
+        27,
+        32,
+        27,
+        25,
         25
       ],
       "missingBirthyears": 0,
       "totalPlayers": 24,
-      "substituteAppearances": 37,
+      "substituteAppearances": 40,
       "players": [
         {
           "name": "Bixenti Ducoulombier",
           "age": 23,
-          "minutes": 416
+          "minutes": 506
         },
         {
           "name": "Bram De Baets",
@@ -828,7 +872,7 @@
         {
           "name": "Brecht Timmerman",
           "age": 27,
-          "minutes": 576
+          "minutes": 611
         },
         {
           "name": "Bruno Delhaye",
@@ -848,17 +892,17 @@
         {
           "name": "Jan Claessens",
           "age": 25,
-          "minutes": 779
+          "minutes": 869
         },
         {
           "name": "Jarne Vancompernolle",
           "age": 27,
-          "minutes": 282
+          "minutes": 337
         },
         {
           "name": "Jarno Boone",
           "age": 32,
-          "minutes": 556
+          "minutes": 646
         },
         {
           "name": "Jasper Réginald Verhofstede",
@@ -868,12 +912,12 @@
         {
           "name": "Kiran De Bel",
           "age": 20,
-          "minutes": 51
+          "minutes": 121
         },
         {
           "name": "Kjell Delos",
           "age": 21,
-          "minutes": 209
+          "minutes": 279
         },
         {
           "name": "Lenny Frank Buyl",
@@ -888,7 +932,7 @@
         {
           "name": "Miguel De Block",
           "age": 26,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Pascal Ohiaeri",
@@ -898,12 +942,12 @@
         {
           "name": "Quirino Raes",
           "age": 25,
-          "minutes": 600
+          "minutes": 690
         },
         {
           "name": "Tenas Virgili",
           "age": 24,
-          "minutes": 234
+          "minutes": 254
         },
         {
           "name": "Thibo Gies",
@@ -913,7 +957,7 @@
         {
           "name": "Thomas Vuyts",
           "age": 34,
-          "minutes": 676
+          "minutes": 696
         },
         {
           "name": "Tiago Dejaegher",
@@ -923,24 +967,24 @@
         {
           "name": "Tibo Andries",
           "age": 27,
-          "minutes": 603
+          "minutes": 693
         },
         {
           "name": "Xander Timmerman",
           "age": 20,
-          "minutes": 780
+          "minutes": 870
         },
         {
           "name": "Yoni Delporte",
           "age": 24,
-          "minutes": 720
+          "minutes": 810
         }
       ]
     },
     "K. FC Marke A": {
-      "averageStarterAge": 26.7,
+      "averageStarterAge": 26.9,
       "averageSubstituteAge": 25.1,
-      "starterAppearances": 99,
+      "starterAppearances": 110,
       "starterAges": [
         20,
         19,
@@ -1040,21 +1084,32 @@
         29,
         22,
         27,
-        21
+        21,
+        35,
+        21,
+        22,
+        27,
+        28,
+        24,
+        34,
+        33,
+        26,
+        29,
+        27
       ],
       "missingBirthyears": 0,
       "totalPlayers": 21,
-      "substituteAppearances": 34,
+      "substituteAppearances": 35,
       "players": [
         {
           "name": "Amaury Demuynck",
           "age": 21,
-          "minutes": 559
+          "minutes": 649
         },
         {
           "name": "Anthony Degrendel",
           "age": 35,
-          "minutes": 536
+          "minutes": 626
         },
         {
           "name": "Arne Naessens",
@@ -1069,12 +1124,12 @@
         {
           "name": "Benjamin Bonte",
           "age": 33,
-          "minutes": 511
+          "minutes": 601
         },
         {
           "name": "Bob Desmet",
           "age": 24,
-          "minutes": 612
+          "minutes": 702
         },
         {
           "name": "Brecht Santy",
@@ -1089,27 +1144,27 @@
         {
           "name": "Hannes Tieberghien",
           "age": 34,
-          "minutes": 424
+          "minutes": 514
         },
         {
           "name": "Jannis Bourgeois",
           "age": 22,
-          "minutes": 409
+          "minutes": 499
         },
         {
           "name": "Jarne Wullaert",
           "age": 27,
-          "minutes": 703
+          "minutes": 793
         },
         {
           "name": "Jasper Cafmeyer",
           "age": 29,
-          "minutes": 293
+          "minutes": 373
         },
         {
           "name": "Jelle Duthoo",
           "age": 27,
-          "minutes": 784
+          "minutes": 874
         },
         {
           "name": "Lander Denduyver",
@@ -1119,7 +1174,7 @@
         {
           "name": "Lucas Coornaert",
           "age": 22,
-          "minutes": 151
+          "minutes": 161
         },
         {
           "name": "Michiel Tieberghien",
@@ -1144,19 +1199,19 @@
         {
           "name": "Thibault Trioen",
           "age": 26,
-          "minutes": 603
+          "minutes": 693
         },
         {
           "name": "Thomas Menghis",
           "age": 28,
-          "minutes": 707
+          "minutes": 797
         }
       ]
     },
     "K. FC Varsenare A": {
-      "averageStarterAge": 23.8,
+      "averageStarterAge": 23.9,
       "averageSubstituteAge": 22.3,
-      "starterAppearances": 99,
+      "starterAppearances": 110,
       "starterAges": [
         23,
         25,
@@ -1256,16 +1311,27 @@
         28,
         24,
         22,
+        24,
+        20,
+        25,
+        34,
+        25,
+        21,
+        25,
+        22,
+        24,
+        22,
+        28,
         24
       ],
       "missingBirthyears": 0,
       "totalPlayers": 19,
-      "substituteAppearances": 26,
+      "substituteAppearances": 29,
       "players": [
         {
           "name": "Andreas De Kerpel",
           "age": 24,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Bavo Butaye",
@@ -1275,12 +1341,12 @@
         {
           "name": "Benoit Onraet",
           "age": 25,
-          "minutes": 630
+          "minutes": 720
         },
         {
           "name": "Brent Ooghe",
           "age": 23,
-          "minutes": 283
+          "minutes": 299
         },
         {
           "name": "Eleazar Osei-Berkoe",
@@ -1290,17 +1356,17 @@
         {
           "name": "Gaëtan Deschepper",
           "age": 28,
-          "minutes": 433
+          "minutes": 523
         },
         {
           "name": "Ilko Kesteleyn",
           "age": 24,
-          "minutes": 789
+          "minutes": 879
         },
         {
           "name": "Jari Van De Maele",
           "age": 25,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Joppe Tijtgat",
@@ -1315,37 +1381,37 @@
         {
           "name": "Kasper Van Leirsberghe",
           "age": 20,
-          "minutes": 360
+          "minutes": 450
         },
         {
           "name": "Kiron Beernaert",
           "age": 25,
-          "minutes": 355
+          "minutes": 420
         },
         {
           "name": "Martijn Ameel",
           "age": 24,
-          "minutes": 68
+          "minutes": 84
         },
         {
           "name": "Matteo Compernolle",
           "age": 20,
-          "minutes": 621
+          "minutes": 646
         },
         {
           "name": "Milan Van De Maele",
           "age": 21,
-          "minutes": 795
+          "minutes": 885
         },
         {
           "name": "Olivier Delcampe",
           "age": 34,
-          "minutes": 531
+          "minutes": 621
         },
         {
           "name": "Rune Vandamme-Vinckier",
           "age": 22,
-          "minutes": 391
+          "minutes": 465
         },
         {
           "name": "Sebastien Cattoor",
@@ -1355,14 +1421,14 @@
         {
           "name": "Timon Bogaert",
           "age": 22,
-          "minutes": 655
+          "minutes": 729
         }
       ]
     },
     "K. RC Bissegem": {
-      "averageStarterAge": 27,
-      "averageSubstituteAge": 23.6,
-      "starterAppearances": 99,
+      "averageStarterAge": 27.1,
+      "averageSubstituteAge": 23.4,
+      "starterAppearances": 110,
       "starterAges": [
         27,
         29,
@@ -1462,11 +1528,22 @@
         29,
         27,
         36,
+        23,
+        27,
+        29,
+        24,
+        30,
+        30,
+        26,
+        26,
+        29,
+        27,
+        36,
         23
       ],
       "missingBirthyears": 0,
       "totalPlayers": 26,
-      "substituteAppearances": 25,
+      "substituteAppearances": 29,
       "players": [
         {
           "name": "Andres Dewaele",
@@ -1476,7 +1553,7 @@
         {
           "name": "Arne Derycke",
           "age": 30,
-          "minutes": 34
+          "minutes": 124
         },
         {
           "name": "Arnold Vandenborre",
@@ -1486,12 +1563,12 @@
         {
           "name": "August Laverge",
           "age": 22,
-          "minutes": 90
+          "minutes": 108
         },
         {
           "name": "Bruno Dhoop",
           "age": 27,
-          "minutes": 810
+          "minutes": 889
         },
         {
           "name": "Clément Michel Doolaeghe",
@@ -1501,12 +1578,12 @@
         {
           "name": "Elias Ben Ali",
           "age": 23,
-          "minutes": 769
+          "minutes": 859
         },
         {
           "name": "Emiel Martens",
           "age": 27,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Ennio Franklin Tack",
@@ -1516,12 +1593,12 @@
         {
           "name": "Ewoud Defevere",
           "age": 30,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Glenn Lapeire",
           "age": 26,
-          "minutes": 601
+          "minutes": 691
         },
         {
           "name": "Harm Vansteenkiste",
@@ -1531,7 +1608,7 @@
         {
           "name": "Ismaïl El Ouassif",
           "age": 28,
-          "minutes": 680
+          "minutes": 691
         },
         {
           "name": "Jarne Moenens",
@@ -1541,12 +1618,12 @@
         {
           "name": "Jenci Dejonghe",
           "age": 36,
-          "minutes": 810
+          "minutes": 876
         },
         {
           "name": "Lennert Lingier",
           "age": 26,
-          "minutes": 478
+          "minutes": 550
         },
         {
           "name": "Lowie Joost Laperre",
@@ -1566,12 +1643,12 @@
         {
           "name": "Noah Vanhouwaert",
           "age": 19,
-          "minutes": 25
+          "minutes": 49
         },
         {
           "name": "Orry Vancraeyveldt",
           "age": 29,
-          "minutes": 174
+          "minutes": 264
         },
         {
           "name": "Robin Douven",
@@ -1581,7 +1658,7 @@
         {
           "name": "Rutger Sturm",
           "age": 29,
-          "minutes": 155
+          "minutes": 221
         },
         {
           "name": "Sory Kaba",
@@ -1591,19 +1668,19 @@
         {
           "name": "Yari Vercaemere",
           "age": 21,
-          "minutes": 66
+          "minutes": 90
         },
         {
           "name": "Zito Bostoen",
           "age": 24,
-          "minutes": 810
+          "minutes": 900
         }
       ]
     },
     "K. SK Beveren-Leie A": {
-      "averageStarterAge": 24.3,
+      "averageStarterAge": 24.2,
       "averageSubstituteAge": 20.7,
-      "starterAppearances": 99,
+      "starterAppearances": 110,
       "starterAges": [
         29,
         27,
@@ -1703,31 +1780,42 @@
         26,
         21,
         23,
+        24,
+        29,
+        22,
+        21,
+        24,
+        19,
+        30,
+        18,
+        26,
+        26,
+        25,
         24
       ],
       "missingBirthyears": 0,
       "totalPlayers": 23,
-      "substituteAppearances": 30,
+      "substituteAppearances": 33,
       "players": [
         {
           "name": "Alessandro Dujardin",
           "age": 25,
-          "minutes": 627
+          "minutes": 717
         },
         {
           "name": "Alpha Mamoudou Sylla",
           "age": 19,
-          "minutes": 675
+          "minutes": 765
         },
         {
           "name": "Baptiste Vandoorne",
           "age": 18,
-          "minutes": 503
+          "minutes": 593
         },
         {
           "name": "Benoit Degruyter",
           "age": 29,
-          "minutes": 773
+          "minutes": 863
         },
         {
           "name": "Bilal El Ouassif",
@@ -1737,7 +1825,7 @@
         {
           "name": "Bryan Khetta",
           "age": 26,
-          "minutes": 700
+          "minutes": 790
         },
         {
           "name": "Cyriel Vandenabeele",
@@ -1747,7 +1835,7 @@
         {
           "name": "Dario Wandels",
           "age": 21,
-          "minutes": 342
+          "minutes": 362
         },
         {
           "name": "Dmitry Konstantinovich Kryzhanovskiy",
@@ -1762,22 +1850,22 @@
         {
           "name": "Gianni Sobrie",
           "age": 24,
-          "minutes": 630
+          "minutes": 720
         },
         {
           "name": "Gilles De Greve",
           "age": 24,
-          "minutes": 785
+          "minutes": 875
         },
         {
           "name": "Ilyas Akhandaf",
           "age": 19,
-          "minutes": 170
+          "minutes": 178
         },
         {
           "name": "Jari Longueville",
           "age": 21,
-          "minutes": 261
+          "minutes": 343
         },
         {
           "name": "Jérome Vromant",
@@ -1787,7 +1875,7 @@
         {
           "name": "Len De Smet",
           "age": 22,
-          "minutes": 187
+          "minutes": 257
         },
         {
           "name": "Lex Vaneeckhoutte",
@@ -1807,12 +1895,12 @@
         {
           "name": "Rimas Vande Vyver",
           "age": 21,
-          "minutes": 210
+          "minutes": 230
         },
         {
           "name": "Safouane Rahhab",
           "age": 26,
-          "minutes": 564
+          "minutes": 634
         },
         {
           "name": "Vincenzo Dujardin",
@@ -1822,14 +1910,14 @@
         {
           "name": "Yani Desmet",
           "age": 30,
-          "minutes": 810
+          "minutes": 900
         }
       ]
     },
     "K. SV Veurne A": {
-      "averageStarterAge": 28,
-      "averageSubstituteAge": 23.7,
-      "starterAppearances": 99,
+      "averageStarterAge": 28.0,
+      "averageSubstituteAge": 24.1,
+      "starterAppearances": 110,
       "starterAges": [
         21,
         39,
@@ -1901,6 +1989,17 @@
         39,
         21,
         31,
+        22,
+        24,
+        29,
+        36,
+        38,
+        20,
+        30,
+        21,
+        39,
+        24,
+        21,
         22,
         24,
         29,
@@ -1933,12 +2032,12 @@
       ],
       "missingBirthyears": 0,
       "totalPlayers": 19,
-      "substituteAppearances": 26,
+      "substituteAppearances": 28,
       "players": [
         {
           "name": "Anouk Vanysacker",
           "age": 30,
-          "minutes": 765
+          "minutes": 855
         },
         {
           "name": "Axel Leeman",
@@ -1948,7 +2047,7 @@
         {
           "name": "Bart Winnock",
           "age": 36,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Cis Goesaert",
@@ -1958,17 +2057,17 @@
         {
           "name": "Dante Blanckaert",
           "age": 29,
-          "minutes": 791
+          "minutes": 880
         },
         {
           "name": "Dayne Clarebout",
           "age": 22,
-          "minutes": 769
+          "minutes": 859
         },
         {
           "name": "Gianni Jooris",
           "age": 21,
-          "minutes": 768
+          "minutes": 858
         },
         {
           "name": "Gilles Van Holm",
@@ -1978,7 +2077,7 @@
         {
           "name": "Jessy Blanckaert",
           "age": 28,
-          "minutes": 67
+          "minutes": 68
         },
         {
           "name": "Joppe Rathé",
@@ -1988,27 +2087,27 @@
         {
           "name": "Jordy Bardyn",
           "age": 31,
-          "minutes": 449
+          "minutes": 464
         },
         {
           "name": "Kasper De Keyrel",
           "age": 20,
-          "minutes": 804
+          "minutes": 894
         },
         {
           "name": "Kevin Chateau",
           "age": 38,
-          "minutes": 675
+          "minutes": 750
         },
         {
           "name": "Luca Baekelandt",
           "age": 24,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Pieter Dedrie",
           "age": 39,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Stan Vanmassenhove",
@@ -2023,19 +2122,19 @@
         {
           "name": "Wietse Deprez",
           "age": 24,
-          "minutes": 328
+          "minutes": 354
         },
         {
           "name": "Wout Vandendriessche",
           "age": 21,
-          "minutes": 810
+          "minutes": 900
         }
       ]
     },
     "K. Sassp. Boezinge A": {
-      "averageStarterAge": 25.7,
-      "averageSubstituteAge": 22.3,
-      "starterAppearances": 99,
+      "averageStarterAge": 25.6,
+      "averageSubstituteAge": 22.9,
+      "starterAppearances": 110,
       "starterAges": [
         37,
         19,
@@ -2135,21 +2234,32 @@
         29,
         20,
         19,
+        28,
+        37,
+        19,
+        29,
+        20,
+        21,
+        23,
+        21,
+        27,
+        23,
+        19,
         28
       ],
       "missingBirthyears": 0,
       "totalPlayers": 23,
-      "substituteAppearances": 27,
+      "substituteAppearances": 31,
       "players": [
         {
           "name": "Auguste Vandevoorde",
           "age": 19,
-          "minutes": 37
+          "minutes": 45
         },
         {
           "name": "Colin Sohier",
           "age": 21,
-          "minutes": 416
+          "minutes": 506
         },
         {
           "name": "Fabian Rassalle",
@@ -2164,32 +2274,32 @@
         {
           "name": "Ilyas Lakfif",
           "age": 21,
-          "minutes": 406
+          "minutes": 496
         },
         {
           "name": "Jarne Jodts",
           "age": 27,
-          "minutes": 316
+          "minutes": 406
         },
         {
           "name": "Joenes Kasmi",
           "age": 23,
-          "minutes": 393
+          "minutes": 465
         },
         {
           "name": "Justin Vanbrabandt",
           "age": 37,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Lennart Sampers",
           "age": 28,
-          "minutes": 680
+          "minutes": 698
         },
         {
           "name": "Lilian Bochet",
           "age": 35,
-          "minutes": 253
+          "minutes": 271
         },
         {
           "name": "Mathias Delboo",
@@ -2204,7 +2314,7 @@
         {
           "name": "Maxime Vanackere",
           "age": 19,
-          "minutes": 765
+          "minutes": 855
         },
         {
           "name": "Milan Cneudt",
@@ -2219,22 +2329,22 @@
         {
           "name": "Owen Casier",
           "age": 19,
-          "minutes": 580
+          "minutes": 662
         },
         {
           "name": "Remko Vandamme",
           "age": 24,
-          "minutes": 116
+          "minutes": 124
         },
         {
           "name": "Robbe Dumont",
           "age": 20,
-          "minutes": 300
+          "minutes": 390
         },
         {
           "name": "Robbe Vandergunst",
           "age": 23,
-          "minutes": 543
+          "minutes": 615
         },
         {
           "name": "Sam Lemahieu",
@@ -2244,12 +2354,12 @@
         {
           "name": "Seppe Gantois",
           "age": 28,
-          "minutes": 695
+          "minutes": 777
         },
         {
           "name": "Valentin Mahieu",
           "age": 29,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Ward Maerten",
@@ -2259,9 +2369,9 @@
       ]
     },
     "K. VC Ardooie A": {
-      "averageStarterAge": 25.8,
+      "averageStarterAge": 25.7,
       "averageSubstituteAge": 25.1,
-      "starterAppearances": 99,
+      "starterAppearances": 110,
       "starterAges": [
         29,
         21,
@@ -2348,6 +2458,17 @@
         28,
         33,
         18,
+        23,
+        21,
+        21,
+        29,
+        24,
+        25,
+        25,
+        26,
+        28,
+        23,
+        33,
         23,
         21,
         21,
@@ -2365,27 +2486,27 @@
       ],
       "missingBirthyears": 0,
       "totalPlayers": 21,
-      "substituteAppearances": 38,
+      "substituteAppearances": 42,
       "players": [
         {
           "name": "Achiel Denijs",
           "age": 23,
-          "minutes": 144
+          "minutes": 206
         },
         {
           "name": "Achille Callens",
           "age": 24,
-          "minutes": 466
+          "minutes": 556
         },
         {
           "name": "Aiden Lenihan",
           "age": 23,
-          "minutes": 402
+          "minutes": 424
         },
         {
           "name": "Brent Callewaert",
           "age": 29,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Brian Depondt",
@@ -2395,12 +2516,12 @@
         {
           "name": "Edouard Holvoet",
           "age": 26,
-          "minutes": 577
+          "minutes": 645
         },
         {
           "name": "Gianluca Cardoen",
           "age": 28,
-          "minutes": 579
+          "minutes": 669
         },
         {
           "name": "Giovanni Franco Simoês",
@@ -2410,17 +2531,17 @@
         {
           "name": "Glenn Maddens",
           "age": 33,
-          "minutes": 706
+          "minutes": 788
         },
         {
           "name": "Gregory Hermans",
           "age": 32,
-          "minutes": 177
+          "minutes": 205
         },
         {
           "name": "Guillaume Tournicourt",
           "age": 21,
-          "minutes": 601
+          "minutes": 691
         },
         {
           "name": "Jaron Strobbe",
@@ -2430,32 +2551,32 @@
         {
           "name": "Joran Lievrouw",
           "age": 18,
-          "minutes": 672
+          "minutes": 680
         },
         {
           "name": "Jordi Loncke",
           "age": 30,
-          "minutes": 89
+          "minutes": 117
         },
         {
           "name": "Lennert Van De Putte",
           "age": 23,
-          "minutes": 775
+          "minutes": 865
         },
         {
           "name": "Matisse Maelfait",
           "age": 25,
-          "minutes": 629
+          "minutes": 719
         },
         {
           "name": "Maxim Ver Eecke",
           "age": 25,
-          "minutes": 797
+          "minutes": 887
         },
         {
           "name": "Milan Rudy Deprest",
           "age": 21,
-          "minutes": 488
+          "minutes": 550
         },
         {
           "name": "Noah Dumortier",
@@ -2475,9 +2596,9 @@
       ]
     },
     "K.R.C. Waregem A": {
-      "averageStarterAge": 29,
-      "averageSubstituteAge": 22.4,
-      "starterAppearances": 99,
+      "averageStarterAge": 29.0,
+      "averageSubstituteAge": 22.7,
+      "starterAppearances": 110,
       "starterAges": [
         35,
         30,
@@ -2577,46 +2698,57 @@
         23,
         26,
         25,
-        25
+        25,
+        35,
+        30,
+        30,
+        37,
+        25,
+        36,
+        27,
+        25,
+        23,
+        26,
+        22
       ],
       "missingBirthyears": 0,
       "totalPlayers": 19,
-      "substituteAppearances": 34,
+      "substituteAppearances": 38,
       "players": [
         {
           "name": "Arnaut Devenyns",
           "age": 25,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Denzel Van Fleteren",
           "age": 37,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Emiel Delmulle",
           "age": 24,
-          "minutes": 416
+          "minutes": 418
         },
         {
           "name": "Frito Naeyaert",
           "age": 25,
-          "minutes": 157
+          "minutes": 163
         },
         {
           "name": "Jarne Vanderpoorten",
           "age": 27,
-          "minutes": 798
+          "minutes": 888
         },
         {
           "name": "Jörg Roger Dutoit",
           "age": 36,
-          "minutes": 630
+          "minutes": 720
         },
         {
           "name": "Kengi Callens",
           "age": 23,
-          "minutes": 253
+          "minutes": 315
         },
         {
           "name": "Kyran Vantieghem",
@@ -2631,27 +2763,27 @@
         {
           "name": "Mathis Lievens",
           "age": 22,
-          "minutes": 379
+          "minutes": 441
         },
         {
           "name": "Matteo Dujardin",
           "age": 25,
-          "minutes": 406
+          "minutes": 494
         },
         {
           "name": "Robbe Debue",
           "age": 22,
-          "minutes": 394
+          "minutes": 422
         },
         {
           "name": "Robbe Driessens",
           "age": 30,
-          "minutes": 739
+          "minutes": 829
         },
         {
           "name": "Siebe Depraetere",
           "age": 30,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Siebe Derycke",
@@ -2661,12 +2793,12 @@
         {
           "name": "Simon Vandenabeele",
           "age": 29,
-          "minutes": 600
+          "minutes": 628
         },
         {
           "name": "Soren Dutoit",
           "age": 35,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Thibeau Waeye",
@@ -2676,14 +2808,14 @@
         {
           "name": "Tjardo Vanderghinste",
           "age": 26,
-          "minutes": 702
+          "minutes": 786
         }
       ]
     },
     "K.S.C. Wielsbeke": {
       "averageStarterAge": 25.5,
-      "averageSubstituteAge": 25.9,
-      "starterAppearances": 99,
+      "averageSubstituteAge": 25.6,
+      "starterAppearances": 110,
       "starterAges": [
         26,
         22,
@@ -2772,6 +2904,17 @@
         19,
         35,
         27,
+        21,
+        26,
+        29,
+        23,
+        33,
+        30,
+        31,
+        22,
+        19,
+        27,
+        24,
         21,
         26,
         29,
@@ -2787,12 +2930,12 @@
       ],
       "missingBirthyears": 0,
       "totalPlayers": 20,
-      "substituteAppearances": 33,
+      "substituteAppearances": 36,
       "players": [
         {
           "name": "Alessio Van Den Broucke",
           "age": 24,
-          "minutes": 399
+          "minutes": 424
         },
         {
           "name": "Arne Beeuwsaert",
@@ -2802,17 +2945,17 @@
         {
           "name": "Berre De Smet",
           "age": 24,
-          "minutes": 707
+          "minutes": 797
         },
         {
           "name": "Charles Noppe",
           "age": 27,
-          "minutes": 702
+          "minutes": 792
         },
         {
           "name": "Dries Wysselinck",
           "age": 29,
-          "minutes": 799
+          "minutes": 889
         },
         {
           "name": "Emiel Pannecoucke",
@@ -2822,27 +2965,27 @@
         {
           "name": "Gilles Van Maeldergem",
           "age": 22,
-          "minutes": 125
+          "minutes": 132
         },
         {
           "name": "Ian Maes",
           "age": 21,
-          "minutes": 767
+          "minutes": 832
         },
         {
           "name": "Jonathan Verstraete",
           "age": 31,
-          "minutes": 802
+          "minutes": 892
         },
         {
           "name": "Kassmi Mohamed Ali",
           "age": 22,
-          "minutes": 567
+          "minutes": 657
         },
         {
           "name": "Kenneth Deryckere",
           "age": 23,
-          "minutes": 430
+          "minutes": 520
         },
         {
           "name": "Lars De Meester",
@@ -2857,17 +3000,17 @@
         {
           "name": "Loris D'Haene",
           "age": 19,
-          "minutes": 570
+          "minutes": 660
         },
         {
           "name": "Matisse De Groote",
           "age": 26,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Rune Jacques Vandenborre",
           "age": 22,
-          "minutes": 525
+          "minutes": 535
         },
         {
           "name": "Senne Van Thuyne",
@@ -2877,12 +3020,12 @@
         {
           "name": "Seppe Jeroen Lecour",
           "age": 30,
-          "minutes": 778
+          "minutes": 861
         },
         {
           "name": "Thomas Coopman",
           "age": 33,
-          "minutes": 283
+          "minutes": 363
         },
         {
           "name": "Vic Callens",
@@ -2893,8 +3036,8 @@
     },
     "KFC Aalbeke Sport A": {
       "averageStarterAge": 29.2,
-      "averageSubstituteAge": 24.6,
-      "starterAppearances": 99,
+      "averageSubstituteAge": 24.3,
+      "starterAppearances": 110,
       "starterAges": [
         29,
         23,
@@ -2994,21 +3137,32 @@
         20,
         27,
         31,
-        37
+        37,
+        23,
+        23,
+        29,
+        36,
+        29,
+        29,
+        20,
+        27,
+        31,
+        37,
+        35
       ],
       "missingBirthyears": 0,
       "totalPlayers": 23,
-      "substituteAppearances": 37,
+      "substituteAppearances": 42,
       "players": [
         {
           "name": "Amine Ahdach",
           "age": 23,
-          "minutes": 163
+          "minutes": 164
         },
         {
           "name": "Bjarne Vanderstraeten",
           "age": 29,
-          "minutes": 811
+          "minutes": 901
         },
         {
           "name": "Charles-Victor Otté",
@@ -3023,22 +3177,22 @@
         {
           "name": "Idriss Jacob",
           "age": 20,
-          "minutes": 41
+          "minutes": 51
         },
         {
           "name": "Jan De Winter",
           "age": 35,
-          "minutes": 491
+          "minutes": 571
         },
         {
           "name": "Jasper Vanneste",
           "age": 23,
-          "minutes": 78
+          "minutes": 79
         },
         {
           "name": "Jeroen Vlieghe",
           "age": 31,
-          "minutes": 263
+          "minutes": 352
         },
         {
           "name": "Kevin Gallo",
@@ -3048,12 +3202,12 @@
         {
           "name": "Klaas Lievrouw",
           "age": 29,
-          "minutes": 503
+          "minutes": 592
         },
         {
           "name": "Lander Wyseur",
           "age": 23,
-          "minutes": 463
+          "minutes": 553
         },
         {
           "name": "Lenny Buyssens",
@@ -3063,7 +3217,7 @@
         {
           "name": "Marvin Pierre Turcan",
           "age": 36,
-          "minutes": 784
+          "minutes": 864
         },
         {
           "name": "Michael François Slowik",
@@ -3073,17 +3227,17 @@
         {
           "name": "Nathan Bunga Mbuta",
           "age": 21,
-          "minutes": 318
+          "minutes": 328
         },
         {
           "name": "Pieter De Winter",
           "age": 37,
-          "minutes": 781
+          "minutes": 871
         },
         {
           "name": "Sabri Bensalem",
           "age": 29,
-          "minutes": 360
+          "minutes": 449
         },
         {
           "name": "Sabri Bensalim",
@@ -3093,12 +3247,12 @@
         {
           "name": "Taybi Bensalem",
           "age": 27,
-          "minutes": 514
+          "minutes": 604
         },
         {
           "name": "Thibaut Millecamps",
           "age": 20,
-          "minutes": 487
+          "minutes": 576
         },
         {
           "name": "Thijs Debuyck",
@@ -3108,19 +3262,19 @@
         {
           "name": "Wassim Essaddiki",
           "age": 22,
-          "minutes": 20
+          "minutes": 21
         },
         {
           "name": "Xandro Cagliostro",
           "age": 23,
-          "minutes": 270
+          "minutes": 360
         }
       ]
     },
     "S.V. Wevelgem City A": {
-      "averageStarterAge": 28,
-      "averageSubstituteAge": 23.9,
-      "starterAppearances": 99,
+      "averageStarterAge": 28.0,
+      "averageSubstituteAge": 23.7,
+      "starterAppearances": 110,
       "starterAges": [
         33,
         31,
@@ -3220,11 +3374,22 @@
         27,
         27,
         23,
-        21
+        21,
+        33,
+        31,
+        27,
+        36,
+        22,
+        24,
+        27,
+        32,
+        27,
+        30,
+        23
       ],
       "missingBirthyears": 0,
       "totalPlayers": 22,
-      "substituteAppearances": 30,
+      "substituteAppearances": 33,
       "players": [
         {
           "name": "Anton Masselis",
@@ -3254,22 +3419,22 @@
         {
           "name": "Gauthier Van De Geuchte",
           "age": 31,
-          "minutes": 794
+          "minutes": 884
         },
         {
           "name": "Gilles Bouckaert",
           "age": 27,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Gilles Hamers",
           "age": 27,
-          "minutes": 489
+          "minutes": 503
         },
         {
           "name": "Jasper Noël Beyens",
           "age": 36,
-          "minutes": 800
+          "minutes": 890
         },
         {
           "name": "Jens Couckuyt",
@@ -3279,42 +3444,42 @@
         {
           "name": "Jordy Beirlaen",
           "age": 27,
-          "minutes": 552
+          "minutes": 642
         },
         {
           "name": "Jorgen Rogiers",
           "age": 33,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Marc Couckuyt",
           "age": 22,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Maxime Cottignie",
           "age": 27,
-          "minutes": 610
+          "minutes": 700
         },
         {
           "name": "Mehdi Oumedjeber",
           "age": 30,
-          "minutes": 706
+          "minutes": 782
         },
         {
           "name": "Raf Vanhuylebrouck",
           "age": 23,
-          "minutes": 259
+          "minutes": 349
         },
         {
           "name": "Robbe Dekiere",
           "age": 32,
-          "minutes": 252
+          "minutes": 328
         },
         {
           "name": "Said Hafidh Khatib",
           "age": 21,
-          "minutes": 362
+          "minutes": 376
         },
         {
           "name": "Thibau Laevens",
@@ -3324,7 +3489,7 @@
         {
           "name": "Tibo Margo",
           "age": 24,
-          "minutes": 164
+          "minutes": 254
         },
         {
           "name": "Victor Cuvelier",
@@ -3339,9 +3504,9 @@
       ]
     },
     "SV Ingelmunster A": {
-      "averageStarterAge": 24.8,
-      "averageSubstituteAge": 23.6,
-      "starterAppearances": 99,
+      "averageStarterAge": 24.6,
+      "averageSubstituteAge": 24.0,
+      "starterAppearances": 110,
       "starterAges": [
         27,
         21,
@@ -3441,31 +3606,42 @@
         30,
         22,
         23,
+        21,
+        27,
+        23,
+        24,
+        23,
+        20,
+        23,
+        19,
+        30,
+        22,
+        23,
         21
       ],
       "missingBirthyears": 0,
       "totalPlayers": 22,
-      "substituteAppearances": 23,
+      "substituteAppearances": 26,
       "players": [
         {
           "name": "Adam Khalil El-Sayed",
           "age": 22,
-          "minutes": 29
+          "minutes": 43
         },
         {
           "name": "Alexandre Vandemaele",
           "age": 20,
-          "minutes": 585
+          "minutes": 651
         },
         {
           "name": "Andres Baert",
           "age": 21,
-          "minutes": 387
+          "minutes": 477
         },
         {
           "name": "Andres Verschelde",
           "age": 29,
-          "minutes": 306
+          "minutes": 330
         },
         {
           "name": "Christ Bruno Mbiakob",
@@ -3485,17 +3661,17 @@
         {
           "name": "Henry Van Parys",
           "age": 24,
-          "minutes": 809
+          "minutes": 899
         },
         {
           "name": "Jean-Louis Vyaene",
           "age": 23,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Jorrit Vanden Berghe",
           "age": 23,
-          "minutes": 248
+          "minutes": 338
         },
         {
           "name": "Lowie Van Renterghem",
@@ -3510,7 +3686,7 @@
         {
           "name": "Matthias Ghyselinck",
           "age": 27,
-          "minutes": 810
+          "minutes": 900
         },
         {
           "name": "Michiel Hanssens",
@@ -3520,7 +3696,7 @@
         {
           "name": "Remco Kentie",
           "age": 23,
-          "minutes": 671
+          "minutes": 761
         },
         {
           "name": "Rune Van Damme",
@@ -3530,12 +3706,12 @@
         {
           "name": "Simon Vanmarcke",
           "age": 31,
-          "minutes": 690
+          "minutes": 696
         },
         {
           "name": "Thiemen Vandeginste",
           "age": 19,
-          "minutes": 97
+          "minutes": 181
         },
         {
           "name": "Tibo Vandendriessche",
@@ -3545,17 +3721,17 @@
         {
           "name": "Vedran Verheule",
           "age": 22,
-          "minutes": 582
+          "minutes": 672
         },
         {
           "name": "Xander Vankeirsbilck",
           "age": 23,
-          "minutes": 686
+          "minutes": 776
         },
         {
           "name": "Yoric Volckaert",
           "age": 30,
-          "minutes": 720
+          "minutes": 796
         }
       ]
     }
