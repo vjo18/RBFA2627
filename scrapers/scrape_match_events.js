@@ -201,9 +201,18 @@ async function main() {
     }
   }
 
+  // Gerichte her-scrape: RBFA_MATCH_URL beperkt deze run tot één wedstrijd.
+  const onlyMatchUrl = (process.env.RBFA_MATCH_URL || "").trim();
+  if (onlyMatchUrl && !finishedMatches.some((m) => m.url === onlyMatchUrl)) {
+    throw new Error("Doelwedstrijd staat niet als gespeeld in de kalender: " + onlyMatchUrl);
+  }
+  if (onlyMatchUrl && existingUrls.has(onlyMatchUrl)) {
+    throw new Error("Doelwedstrijd heeft al events in CSV; wis die eerst bewust.");
+  }
   const urlsToScrape = finishedMatches
     .map((m) => m.url)
-    .filter((url) => url && !existingUrls.has(url));
+    .filter((url) => url && !existingUrls.has(url))
+    .filter((url) => !onlyMatchUrl || url === onlyMatchUrl);
 
   console.log("🆕 Nieuw te scrapen (events):", urlsToScrape.length);
 
@@ -246,6 +255,16 @@ async function main() {
         console.log("   ⚠️ No events found.");
         noEventsCount += 1;
         continue;
+      }
+
+      if (onlyMatchUrl) {
+        const match = finishedMatches.find((m) => m.url === url);
+        const goals = eventData.filter((event) => ["Goal", "Penalty", "Own Goal"].includes(event.event));
+        const actualHome = goals.filter((event) => event.team === match.homeTeam).length;
+        const actualAway = goals.filter((event) => event.team === match.awayTeam).length;
+        if (actualHome !== Number(match.homeScore) || actualAway !== Number(match.awayScore)) {
+          throw new Error(`Onvolledige doelpunten: ${actualHome}-${actualAway} in plaats van ${match.homeScore}-${match.awayScore}; CSV blijft ongewijzigd`);
+        }
       }
 
       console.log(`   ✔️ ${eventData.length} events found.`);
