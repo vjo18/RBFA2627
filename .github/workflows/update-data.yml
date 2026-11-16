@@ -54,6 +54,9 @@ jobs:
       - name: RBFA-data ophalen en statistieken vernieuwen
         run: npm run update:data
 
+      - name: Afgeleide statistieken vergelijken met wedstrijdkalender
+        run: python processing/validate_dashboard_consistency.py
+
       - name: Leeftijdsstatistieken opnieuw berekenen
         run: python processing/export_player_ages.py
 

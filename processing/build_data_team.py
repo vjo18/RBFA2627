@@ -52,6 +52,9 @@ def load_matches():
         matches = json.load(f)
 
     df = pd.DataFrame(matches)
+    if df["url"].duplicated().any():
+        duplicate_urls = df.loc[df["url"].duplicated(), "url"].tolist()
+        raise ValueError(f"Dubbele wedstrijden in kalender; ELO-berekening gestopt: {duplicate_urls}")
     df["date"] = df["date"].apply(parse_dutch_date)
     df = df.sort_values("date").reset_index(drop=True)
     return df
