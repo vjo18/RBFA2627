@@ -138,9 +138,22 @@ if (!process.env.DISPLAY && process.env.RBFA_XVFB_CHILD !== "1") {
     );
   }
 
+  // Een speeldagselectie kan dezelfde wedstrijd in twee views tonen.
+  // Bewaar elke wedstrijd-URL slechts eenmaal; conflicterende resultaten zijn een fout.
+  const uniqueMatches = new Map();
+  for (const match of matchData) {
+    const previous = uniqueMatches.get(match.url);
+    if (previous && JSON.stringify(previous) !== JSON.stringify(match)) {
+      throw new Error(`Tegenstrijdige kalenderregels voor ${match.url}`);
+    }
+    uniqueMatches.set(match.url, match);
+  }
+  const deduplicated = [...uniqueMatches.values()];
+  console.log(`🔍 Dubbele kalenderregels verwijderd: ${matchData.length - deduplicated.length}`);
+
   fs.writeFileSync(
     "data_raw/match_calendar.json",
-    JSON.stringify(matchData, null, 2),
+    JSON.stringify(deduplicated, null, 2),
     "utf8"
   );
 

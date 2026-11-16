@@ -209,8 +209,7 @@ async function main() {
   if (onlyMatchUrl && existingUrls.has(onlyMatchUrl)) {
     throw new Error("Doelwedstrijd heeft al events in CSV; wis die eerst bewust.");
   }
-  const urlsToScrape = finishedMatches
-    .map((m) => m.url)
+  const urlsToScrape = [...new Set(finishedMatches.map((m) => m.url))]
     .filter((url) => url && !existingUrls.has(url))
     .filter((url) => !onlyMatchUrl || url === onlyMatchUrl);
 
@@ -257,7 +256,9 @@ async function main() {
         continue;
       }
 
-      if (onlyMatchUrl) {
+      // Voor ELKE wedstrijd de eventscore valideren vóór het wegschrijven.
+      // Zo kan een mislukte/verdubbelde scrape nooit stilletjes worden gepubliceerd.
+      {
         const match = finishedMatches.find((m) => m.url === url);
         const goals = eventData.filter((event) => ["Goal", "Penalty", "Own Goal"].includes(event.event));
         const actualHome = goals.filter((event) => event.team === match.homeTeam).length;
