@@ -3,7 +3,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "processing"))
-from validate_match_data import validate
+from validate_match_data import validate, validate_players
 
 
 def match():
@@ -25,6 +25,15 @@ class ValidationTests(unittest.TestCase):
     def test_duplicate_goals_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Dubbele eventregels"):
             validate([match()], [goal(), goal()])
+
+    def test_duplicate_player_match_rejected(self):
+        row = {"Match URL": "match-1", "Team": "A", "Player Name": "Tester"}
+        with self.assertRaisesRegex(ValueError, "Dubbele speler"):
+            validate_players([match()], [row, row])
+
+    def test_single_player_match_accepted(self):
+        row = {"Match URL": "match-1", "Team": "A", "Player Name": "Tester"}
+        self.assertEqual(validate_players([match()], [row]), 1)
 
     def test_missing_goal_rejected(self):
         with self.assertRaisesRegex(ValueError, "Doelpunten"):

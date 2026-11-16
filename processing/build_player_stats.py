@@ -827,6 +827,10 @@ from player_impact import (
 def build_player_stats():
     # 1) data inladen
     df = pd.read_csv(PLAYER_INPUT)
+    player_keys = ["Match URL", "Team", "Player Name"]
+    if df.duplicated(subset=player_keys).any():
+        duplicates = df.loc[df.duplicated(subset=player_keys), player_keys].head(5)
+        raise ValueError(f"Dubbele spelersrecords, berekening gestopt: {duplicates.to_dict(orient='records')}")
 
     # booleans normaliseren
     def to_bool(s):

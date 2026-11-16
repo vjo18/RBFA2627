@@ -98,8 +98,7 @@ if (
     headerWritten = true;
   }
 
-  const urlsToScrape = finishedMatches
-    .map((m) => m.url)
+  const urlsToScrape = [...new Set(finishedMatches.map((m) => m.url))]
     .filter((url) => url && !existingUrls.has(url));
 
   console.log(`📅 Gespeelde matchen: ${finishedMatches.length}`);
@@ -614,6 +613,14 @@ let errorCount = 0;
       }
 
 
+      const seenPlayers = new Set();
+      for (const player of matchData) {
+        const key = [player["Match URL"], player["Team"], player["Player Name"]].join("|");
+        if (seenPlayers.has(key)) {
+          throw new Error(`Dubbele speler in wedstrijddata: ${key}`);
+        }
+        seenPlayers.add(key);
+      }
       console.log(`   ✔️ ${matchData.length} player rows.`);
 
       // CSV-rijen in vaste kolomvolgorde

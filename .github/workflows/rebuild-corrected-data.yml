@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'processing/build_data_team.py'
+      - 'processing/build_player_stats.py'
   workflow_dispatch:
 
 permissions:
