@@ -33,6 +33,21 @@ class ValidationTests(unittest.TestCase):
 
     def test_single_player_match_accepted(self):
         row = {"Match URL": "match-1", "Team": "A", "Player Name": "Tester"}
+        row["Goals Scored"] = "1"
+        self.assertEqual(validate_players([match()], [row]), 1)
+
+    def test_missing_player_match_rejected(self):
+        with self.assertRaisesRegex(ValueError, "ontbreken"):
+            validate_players([match()], [])
+
+    def test_player_goal_count_rejected(self):
+        row = {"Match URL": "match-1", "Team": "A", "Player Name": "Tester", "Goals Scored": "0"}
+        with self.assertRaisesRegex(ValueError, "Spelersdoelpunten"):
+            validate_players([match()], [row])
+
+    def test_player_goal_and_penalty_reconcile(self):
+        row = {"Match URL": "match-1", "Team": "A", "Player Name": "Tester",
+               "Goals Scored": "0", "Penalties Scored": "1"}
         self.assertEqual(validate_players([match()], [row]), 1)
 
     def test_missing_goal_rejected(self):

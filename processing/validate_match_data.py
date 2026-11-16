@@ -49,6 +49,32 @@ def validate_players(calendar, players):
     unknown = {row.get("Match URL") for row in players if row.get("Match URL") not in allowed_urls}
     if unknown:
         raise ValueError(f"Spelersgegevens voor wedstrijden buiten de kalender: {sorted(unknown)[:10]}")
+    player_urls = {row.get("Match URL") for row in players}
+    missing = allowed_urls - player_urls
+    if missing:
+        raise ValueError(f"Spelersgegevens ontbreken voor wedstrijden: {sorted(missing)[:10]}")
+    # Goals Scored is exclusief strafschoppen; Own Goals Scored worden
+    # bij de tegenstander als doelpunt geboekt.
+    from collections import defaultdict
+    by_match = defaultdict(list)
+    for row in players:
+        by_match[row["Match URL"]].append(row)
+    for match in calendar:
+        url = match["url"]
+        if url not in allowed_urls:
+            continue
+        rows = by_match[url]
+        home, away = match["homeTeam"], match["awayTeam"]
+        for team, other, expected in ((home, away, match["homeScore"]), (away, home, match["awayScore"])):
+            direct = sum(int(row.get("Goals Scored") or 0) + int(row.get("Penalties Scored") or 0)
+                         for row in rows if row.get("Team") == team)
+            own = sum(int(row.get("Own Goals Scored") or 0)
+                      for row in rows if row.get("Team") == other)
+            if direct + own != int(expected):
+                raise ValueError(
+                    f"Spelersdoelpunten wijken af voor {url} ({team}): "
+                    f"{direct} gewone/penalty + {own} eigen = {direct + own}, verwacht {expected}"
+                )
     return len(players)
 
 
